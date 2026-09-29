@@ -124,7 +124,12 @@ fn plays_the_season_in_order_with_its_tracks() {
         .skip_while(|a| *a != "--{")
         .take(5)
         .collect();
-    assert_eq!(first_block[..3], ["--{", "--aid=1", "--sid=1"]);
+    assert_eq!(
+        first_block[..3],
+        ["--{", "--aid=1", "--sid=1"],
+        "{:?}",
+        run.mpv_args
+    );
     assert!(run.mpv_args.contains(&"--profile=anime".to_owned()));
     assert!(
         run.mpv_args
@@ -132,9 +137,17 @@ fn plays_the_season_in_order_with_its_tracks() {
             .any(|a| a.starts_with("--input-ipc-server=") && a.ends_with("mpv-launcher.sock"))
     );
     let stdout = String::from_utf8_lossy(&run.output.stdout);
-    assert!(stdout.contains("Found 3 video files"));
-    assert!(stdout.contains("Japanese + Eng Subtitles: 3 files"));
-    assert!(stdout.contains("Playback finished"));
+    let stderr = String::from_utf8_lossy(&run.output.stderr);
+    for expected in [
+        "Found 3 video files",
+        "Japanese + Eng Subtitles: 3 files",
+        "Playback finished",
+    ] {
+        assert!(
+            stdout.contains(expected),
+            "{expected:?} missing from stdout:\n{stdout}\nstderr:\n{stderr}"
+        );
+    }
 }
 
 #[test]
