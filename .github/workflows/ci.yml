@@ -19,6 +19,7 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       episode: ${{ steps.filter.outputs.episode }}
+      library: ${{ steps.filter.outputs.library }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dorny/paths-filter@ceb8a2b8f2d89434be7ff52d3de7ec3738c5cc9d # v4.0.3
@@ -27,6 +28,9 @@ jobs:
           filters: |
             episode:
               - 'episode/**'
+              - '.github/workflows/ci.yml'
+            library:
+              - 'library/**'
               - '.github/workflows/ci.yml'
 
   commit-rules:
@@ -99,14 +103,70 @@ jobs:
           arguments: --all-features
           command: check
 
+  library:
+    needs: changes
+    if: needs.changes.outputs.library == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: library
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de # master
+        with:
+          toolchain: 1.98.1
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: library
+      - run: cargo fmt -- --check
+      - run: cargo clippy --locked --all-targets -- -D warnings
+      - run: cargo test --locked
+      - run: cargo doc --locked --no-deps
+        env:
+          RUSTDOCFLAGS: -Dwarnings
+
+  library-msrv:
+    needs: changes
+    if: needs.changes.outputs.library == 'true'
+    runs-on: ubuntu-24.04
+    defaults:
+      run:
+        working-directory: library
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de # master
+        with:
+          toolchain: "1.85"
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: library
+      - run: cargo check --locked --lib
+
+  library-deny:
+    needs: changes
+    if: needs.changes.outputs.library == 'true'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: EmbarkStudios/cargo-deny-action@3c6349835b2b7b196a839186cb8b78e02f7b5f25 # v2.1.1
+        with:
+          manifest-path: library/Cargo.toml
+          arguments: --all-features
+          command: check
+
   # The only required status check. A job skipped because its project did not change
   # counts as passing here, which a path-filtered workflow would not.
   ci-ok:
     if: always()
-    needs: [changes, commit-rules, episode, episode-msrv, episode-deny]
+    needs: [changes, commit-rules, episode, episode-msrv, episode-deny, library, library-msrv, library-deny]
     runs-on: ubuntu-24.04
     steps:
       - uses: re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35 # v1.3.0
         with:
-          allowed-skips: episode, episode-msrv, episode-deny
+          allowed-skips: episode, episode-msrv, episode-deny, library, library-msrv, library-deny
           jobs: ${{ toJSON(needs) }}

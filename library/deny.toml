@@ -1,0 +1,22 @@
+# cargo-deny checks licences, security advisories, banned crates and dependency
+# sources. Run it with `just deny`; CI runs it too.
+[graph]
+all-features = true
+
+[advisories]
+version = 2
+yanked = "deny"
+
+[licenses]
+version = 2
+confidence-threshold = 0.9
+allow = ["0BSD", "Apache-2.0", "MIT", "Unicode-3.0", "Unlicense"]
+
+[bans]
+multiple-versions = "warn"
+wildcards = "deny"
+allow-wildcard-paths = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
