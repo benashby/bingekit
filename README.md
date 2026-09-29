@@ -6,6 +6,7 @@ language, version, changelog and releases. They share this repository and nothin
 | Project | Language | What it is | Published as |
 |---|---|---|---|
 | [episode](episode/) | Rust | Episode information from media file names (general and anime release names), and a viewing order for a folder of them | `bingekit-episode` on crates.io |
+| [library](library/) | Rust | Video files in a folder, the language of each audio and subtitle track, and per-file track choice from ranked language pairings | `bingekit-library` on crates.io |
 
 Releases are tagged per project as `<project>/vX.Y.Z`, for example `episode/v0.1.0`.
 

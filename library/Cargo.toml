@@ -1,0 +1,25 @@
+[package]
+name = "bingekit-library"
+version = "0.1.0"
+description = "Find the video files in a folder, work out which language each audio and subtitle track is in, and pick tracks for every file from ranked language pairings"
+readme = "README.md"
+keywords = ["media", "subtitles", "audio", "anime", "playlist"]
+categories = ["multimedia::video"]
+edition = "2024"
+rust-version = "1.85"
+license = "0BSD"
+repository = "https://github.com/benashby/bingekit"
+homepage = "https://github.com/benashby/bingekit/tree/main/library"
+authors = ["Ben Ashby <mail@benashby.com>"]
+include = ["src/**", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[dev-dependencies]
+tempfile = "3"
+
+[lints.rust]
+unsafe_code = "forbid"
+missing_docs = "warn"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"

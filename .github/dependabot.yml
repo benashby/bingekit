@@ -14,3 +14,10 @@ updates:
     groups:
       episode:
         patterns: ["*"]
+  - package-ecosystem: cargo
+    directory: /library
+    schedule:
+      interval: weekly
+    groups:
+      library:
+        patterns: ["*"]

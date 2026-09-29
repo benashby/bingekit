@@ -13,6 +13,12 @@
       "component": "episode",
       "package-name": "bingekit-episode",
       "changelog-path": "CHANGELOG.md"
+    },
+    "library": {
+      "release-type": "rust",
+      "component": "library",
+      "package-name": "bingekit-library",
+      "changelog-path": "CHANGELOG.md"
     }
   }
 }
