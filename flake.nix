@@ -51,6 +51,13 @@
               just
               cargo-insta
               cargo-deny
+              # bingekit-library's gstreamer feature and its tests, which make
+              # their media with ffmpeg.
+              pkg-config
+              gst_all_1.gstreamer
+              gst_all_1.gst-plugins-base
+              gst_all_1.gst-plugins-good
+              ffmpeg
             ];
           };
 

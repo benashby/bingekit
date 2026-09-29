@@ -6,12 +6,22 @@ readme = "README.md"
 keywords = ["media", "subtitles", "audio", "anime", "playlist"]
 categories = ["multimedia::video"]
 edition = "2024"
-rust-version = "1.85"
+rust-version = "1.92"
 license = "0BSD"
 repository = "https://github.com/benashby/bingekit"
 homepage = "https://github.com/benashby/bingekit/tree/main/library"
 authors = ["Ben Ashby <mail@benashby.com>"]
 include = ["src/**", "README.md", "CHANGELOG.md", "LICENSE"]
+
+[features]
+# Read tracks out of real files with GStreamer's Discoverer. Needs the
+# GStreamer development libraries at build time.
+gstreamer = ["dep:gstreamer", "dep:gstreamer-pbutils", "dep:gstreamer-tag"]
+
+[dependencies]
+gstreamer = { version = "0.25", optional = true }
+gstreamer-pbutils = { version = "0.25", optional = true }
+gstreamer-tag = { version = "0.25", optional = true }
 
 [dev-dependencies]
 tempfile = "3"

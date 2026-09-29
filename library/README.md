@@ -24,7 +24,11 @@ assert_eq!(choices[0].audio, Some(1));
 assert_eq!(choices[0].subtitles, None);
 ```
 
-Reading tracks out of a file is up to the caller. Episode order comes from
+With the `gstreamer` feature, `probe::Prober` reads a file's tracks through
+GStreamer's Discoverer, turning GStreamer's two-letter language codes back into
+the three-letter ones Matroska stores. It needs GStreamer's development files to
+build. Without the feature, the caller builds each `MediaFile` itself. Episode
+order comes from
 [bingekit-episode](https://github.com/benashby/bingekit/tree/main/episode).
 
 Part of [bingekit](https://github.com/benashby/bingekit). Licensed under

@@ -11,6 +11,9 @@ yanked = "deny"
 version = 2
 confidence-threshold = 0.9
 allow = ["0BSD", "Apache-2.0", "MIT", "Unicode-3.0", "Unlicense"]
+# target-lexicon only runs in the GStreamer bindings' build scripts, and the
+# LLVM exception adds permissions to Apache-2.0.
+exceptions = [{ allow = ["Apache-2.0 WITH LLVM-exception"], crate = "target-lexicon" }]
 
 [bans]
 multiple-versions = "warn"
