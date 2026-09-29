@@ -1,0 +1,27 @@
+# Recipes for mpv-launcher. They run in this directory.
+
+default:
+    @just --list
+
+# The checks CI runs: formatting, clippy and the tests
+check: fmt-check clippy test
+
+fmt:
+    cargo fmt
+
+fmt-check:
+    cargo fmt -- --check
+
+clippy:
+    cargo clippy --all-targets -- -D warnings
+
+# The end-to-end test makes its media with ffmpeg
+test:
+    cargo test
+
+deny:
+    cargo deny check
+
+# Play a folder: just run -dir ~/Videos/show
+run *args:
+    cargo run --release -- {{args}}
