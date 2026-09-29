@@ -1,0 +1,3 @@
+# GStreamer is a product name, and backticks around it in docs would read as
+# code. ".." keeps clippy's default list.
+doc-valid-idents = ["GStreamer", ".."]

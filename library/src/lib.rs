@@ -2,9 +2,9 @@
 //! describing their audio and subtitle tracks, and picking tracks for each file
 //! from a ranked list of language pairings.
 //!
-//! Episode order comes from `bingekit-episode`. Reading tracks out of a real
-//! file is left to the caller, which builds a [`MediaFile`] from whatever
-//! prober it uses.
+//! Episode order comes from `bingekit-episode`. With the `gstreamer` feature,
+//! `probe::Prober` reads a real file's tracks through GStreamer's Discoverer.
+//! Without it, the caller builds each [`MediaFile`] from its own prober.
 //!
 //! ```
 //! use bingekit_library::{MediaFile, Track, TrackKind, default_pairings, choose_tracks};
@@ -29,6 +29,8 @@ pub struct ReadmeDoctests;
 
 pub mod playlist;
 pub mod priority;
+#[cfg(feature = "gstreamer")]
+pub mod probe;
 pub mod scan;
 pub mod tracks;
 

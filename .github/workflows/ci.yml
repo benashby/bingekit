@@ -141,7 +141,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de # master
         with:
-          toolchain: "1.85"
+          toolchain: "1.92"
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           workspaces: library
@@ -159,14 +159,45 @@ jobs:
           arguments: --all-features
           command: check
 
+  # The gstreamer feature needs GStreamer's development files, and its tests
+  # make their media with ffmpeg.
+  library-gstreamer:
+    needs: changes
+    if: needs.changes.outputs.library == 'true'
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, ubuntu-24.04-arm]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        working-directory: library
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
+            gstreamer1.0-plugins-good ffmpeg
+      - uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de # master
+        with:
+          toolchain: 1.98.1
+          components: clippy
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: library
+          key: gstreamer
+      - run: cargo clippy --locked --all-targets --all-features -- -D warnings
+      - run: cargo test --locked --features gstreamer
+
   # The only required status check. A job skipped because its project did not change
   # counts as passing here, which a path-filtered workflow would not.
   ci-ok:
     if: always()
-    needs: [changes, commit-rules, episode, episode-msrv, episode-deny, library, library-msrv, library-deny]
+    needs: [changes, commit-rules, episode, episode-msrv, episode-deny, library, library-msrv, library-deny, library-gstreamer]
     runs-on: ubuntu-24.04
     steps:
       - uses: re-actors/alls-green@b5b5b37504aa4183270bd3d855c52a67f212be35 # v1.3.0
         with:
-          allowed-skips: episode, episode-msrv, episode-deny, library, library-msrv, library-deny
+          allowed-skips: episode, episode-msrv, episode-deny, library, library-msrv, library-deny, library-gstreamer
           jobs: ${{ toJSON(needs) }}
