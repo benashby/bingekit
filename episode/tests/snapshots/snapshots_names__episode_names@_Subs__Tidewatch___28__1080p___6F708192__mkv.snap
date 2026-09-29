@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "[Subs] Tidewatch - 28 (1080p) [6F708192].mkv"
+expression: ep
+---
+Episode {
+    file_name: "[Subs] Tidewatch - 28 (1080p) [6F708192].mkv",
+    title: Some(
+        "Tidewatch",
+    ),
+    season: None,
+    episodes: [
+        28,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Subs",
+    ),
+}

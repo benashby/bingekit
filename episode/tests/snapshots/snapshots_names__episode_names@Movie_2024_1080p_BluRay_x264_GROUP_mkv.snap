@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: Movie.2024.1080p.BluRay.x264-GROUP.mkv
+expression: ep
+---
+Episode {
+    file_name: "Movie.2024.1080p.BluRay.x264-GROUP.mkv",
+    title: Some(
+        "Movie",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "GROUP",
+    ),
+}

@@ -1,0 +1,6 @@
+target/
+/result*
+.direnv/
+# The maintainer's machine generates this from the nix-projects registry.
+/.envrc
+*.pending-snap

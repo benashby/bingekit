@@ -1,0 +1,18 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": true,
+  "include-component-in-tag": true,
+  "tag-separator": "/",
+  "include-v-in-tag": true,
+  "pull-request-title-pattern": "chore: release${component} ${version}",
+  "pull-request-header": "Merging this releases the version below and publishes it.",
+  "pull-request-footer": "The changelog comes from the Conventional Commit messages since the last release.",
+  "packages": {
+    "episode": {
+      "release-type": "rust",
+      "component": "episode",
+      "package-name": "bingekit-episode",
+      "changelog-path": "CHANGELOG.md"
+    }
+  }
+}

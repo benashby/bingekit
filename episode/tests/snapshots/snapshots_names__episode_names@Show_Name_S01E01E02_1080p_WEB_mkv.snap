@@ -1,0 +1,22 @@
+---
+source: tests/snapshots_names.rs
+description: Show.Name.S01E01E02.1080p.WEB.mkv
+expression: ep
+---
+Episode {
+    file_name: "Show.Name.S01E01E02.1080p.WEB.mkv",
+    title: Some(
+        "Show Name",
+    ),
+    season: Some(
+        1,
+    ),
+    episodes: [
+        1,
+        2,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

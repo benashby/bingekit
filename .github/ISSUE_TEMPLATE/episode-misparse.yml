@@ -1,0 +1,23 @@
+name: A file name parses wrong (episode)
+description: bingekit-episode gave the wrong season, episode, kind or order for a file name.
+labels: ["area:episode", "bug"]
+body:
+  - type: textarea
+    id: names
+    attributes:
+      label: File names
+      description: One per line, exactly as they appear on disk. Include the folder's other files if the order is wrong.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected
+      description: The season, episode and kind you expected, or the correct order.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: bingekit-episode version

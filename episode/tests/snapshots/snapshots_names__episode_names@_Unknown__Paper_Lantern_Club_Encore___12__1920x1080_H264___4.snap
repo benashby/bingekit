@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "[Unknown]_Paper_Lantern_Club_Encore_-_12_(1920x1080_H264)_[4D5E6F70].mkv"
+expression: ep
+---
+Episode {
+    file_name: "[Unknown]_Paper_Lantern_Club_Encore_-_12_(1920x1080_H264)_[4D5E6F70].mkv",
+    title: Some(
+        "Paper Lantern Club Encore",
+    ),
+    season: None,
+    episodes: [
+        12,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Unknown",
+    ),
+}

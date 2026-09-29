@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "[Grp]_Paper_Lantern_Club_-_01_(1920x1080_H264_10bit)_[5E6F7081].mkv"
+expression: ep
+---
+Episode {
+    file_name: "[Grp]_Paper_Lantern_Club_-_01_(1920x1080_H264_10bit)_[5E6F7081].mkv",
+    title: Some(
+        "Paper Lantern Club",
+    ),
+    season: None,
+    episodes: [
+        1,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Grp",
+    ),
+}

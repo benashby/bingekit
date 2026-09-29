@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "[Group] Show - NCOP1 [1080p].mkv"
+expression: ep
+---
+Episode {
+    file_name: "[Group] Show - NCOP1 [1080p].mkv",
+    title: Some(
+        "Show",
+    ),
+    season: None,
+    episodes: [
+        1,
+    ],
+    kind: Extra,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Group",
+    ),
+}

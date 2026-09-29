@@ -1,0 +1,20 @@
+# One file name per line; `cargo insta review` shows how each parses.
+# The shows and release groups are made up. Each name keeps the structure of a
+# real-world release: underscores, v2 re-releases, resolution tags and CRCs.
+# Anime fansub releases
+[Grp]_Paper_Lantern_Club_Encore_-_05v2_(1920x1080_H264_10bit)_[1A2B3C4D].mkv
+[Grp]_Paper_Lantern_Club_Encore_-_C01v2_(1920x1080_H264_10bit)_[2B3C4D5E].mkv
+[Grp]_Paper_Lantern_Club_Encore_-_S01v2_(1920x1080_H264_10bit)_[3C4D5E6F].mkv
+[Unknown]_Paper_Lantern_Club_Encore_-_12_(1920x1080_H264)_[4D5E6F70].mkv
+[Grp]_Paper_Lantern_Club_-_01_(1920x1080_H264_10bit)_[5E6F7081].mkv
+[Subs] Tidewatch - 28 (1080p) [6F708192].mkv
+[Group] Long Road - A Journey in Two Parts - 05 [720p].mkv
+[Group] Show - NCOP1 [1080p].mkv
+[Group] Show - OVA2 [1080p].mkv
+# Western TV
+The.Quiet.Coast.S05E03.720p.BluRay.x264-RLS.mkv
+Show.Name.S01E01E02.1080p.WEB.mkv
+Show Name - 2x05 - Title.mkv
+Show.Name.S00E01.Special.mkv
+# Films
+Movie.2024.1080p.BluRay.x264-GROUP.mkv

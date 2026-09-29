@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "[Group] Long Road - A Journey in Two Parts - 05 [720p].mkv"
+expression: ep
+---
+Episode {
+    file_name: "[Group] Long Road - A Journey in Two Parts - 05 [720p].mkv",
+    title: Some(
+        "Long Road - A Journey in Two Parts",
+    ),
+    season: None,
+    episodes: [
+        5,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Group",
+    ),
+}

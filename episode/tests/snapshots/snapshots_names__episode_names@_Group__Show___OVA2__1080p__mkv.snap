@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "[Group] Show - OVA2 [1080p].mkv"
+expression: ep
+---
+Episode {
+    file_name: "[Group] Show - OVA2 [1080p].mkv",
+    title: Some(
+        "Show",
+    ),
+    season: None,
+    episodes: [
+        2,
+    ],
+    kind: Special,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Group",
+    ),
+}

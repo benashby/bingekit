@@ -1,0 +1,29 @@
+# Recipes for bingekit-episode. They run in this directory.
+
+default:
+    @just --list
+
+# The checks CI runs: formatting, clippy and the tests
+check: fmt-check clippy test
+
+fmt:
+    cargo fmt
+
+fmt-check:
+    cargo fmt -- --check
+
+clippy:
+    cargo clippy --all-targets -- -D warnings
+
+test:
+    cargo test
+
+# Review changed insta snapshots
+review:
+    cargo insta review
+
+doc:
+    RUSTDOCFLAGS=-Dwarnings cargo doc --no-deps
+
+deny:
+    cargo deny --all-features check

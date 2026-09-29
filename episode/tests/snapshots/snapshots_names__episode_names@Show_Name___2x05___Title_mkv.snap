@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Show Name - 2x05 - Title.mkv
+expression: ep
+---
+Episode {
+    file_name: "Show Name - 2x05 - Title.mkv",
+    title: Some(
+        "Show Name",
+    ),
+    season: Some(
+        2,
+    ),
+    episodes: [
+        5,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

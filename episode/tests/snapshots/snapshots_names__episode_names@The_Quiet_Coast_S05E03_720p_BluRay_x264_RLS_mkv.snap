@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: The.Quiet.Coast.S05E03.720p.BluRay.x264-RLS.mkv
+expression: ep
+---
+Episode {
+    file_name: "The.Quiet.Coast.S05E03.720p.BluRay.x264-RLS.mkv",
+    title: Some(
+        "The Quiet Coast",
+    ),
+    season: Some(
+        5,
+    ),
+    episodes: [
+        3,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "RLS",
+    ),
+}
