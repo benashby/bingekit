@@ -130,9 +130,12 @@ jobs:
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           workspaces: library
+      # The matroska feature's tests make their media with ffmpeg.
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
       - run: cargo fmt -- --check
       - run: cargo clippy --locked --all-targets -- -D warnings
       - run: cargo test --locked
+      - run: cargo test --locked --features matroska
       - run: cargo doc --locked --no-deps
         env:
           RUSTDOCFLAGS: -Dwarnings
@@ -152,7 +155,7 @@ jobs:
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           workspaces: library
-      - run: cargo check --locked --lib
+      - run: cargo check --locked --lib --features matroska
 
   library-deny:
     needs: changes
