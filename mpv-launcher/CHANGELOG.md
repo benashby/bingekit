@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/benashby/bingekit/compare/mpv-launcher/v0.1.0...mpv-launcher/v0.2.0) (2026-09-30)
+
+
+### Features
+
+* **mpv-launcher:** read tracks from Matroska headers, drop GStreamer ([#14](https://github.com/benashby/bingekit/issues/14)) ([c6a9320](https://github.com/benashby/bingekit/commit/c6a932097e0371982d8c6831584eaba666426b04))
+
 ## 0.1.0 (2026-09-30)
 
 
