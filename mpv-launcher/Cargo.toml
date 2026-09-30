@@ -1,0 +1,29 @@
+[package]
+name = "mpv-launcher"
+version = "0.1.0"
+description = "Play a folder of episodes in mpv, in episode order, with audio and subtitle tracks picked per file from ranked language pairings"
+readme = "README.md"
+edition = "2024"
+rust-version = "1.92"
+license = "0BSD"
+repository = "https://github.com/benashby/bingekit"
+homepage = "https://github.com/benashby/bingekit/tree/main/mpv-launcher"
+authors = ["Ben Ashby <mail@benashby.com>"]
+publish = false
+
+[dependencies]
+bingekit-episode = { version = "0.1", path = "../episode" }
+bingekit-library = { version = "0.1", path = "../library", features = ["gstreamer"] }
+ratatui = "0.30"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[dev-dependencies]
+tempfile = "3"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"

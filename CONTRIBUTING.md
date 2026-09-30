@@ -4,6 +4,8 @@
 
 Each top-level directory is an independent project. Work inside the project you are
 changing, with that language's own tools. Projects do not share a lockfile or a build.
+A project that uses another one depends on it by path and still keeps its own lockfile,
+and its CI filter lists the other project's directory so a change there tests it too.
 
 ## Commits
 
@@ -67,6 +69,6 @@ Until a scaffold script exists, a new project needs:
 2. a `mod` line in the root `justfile`;
 3. an entry in `release-please-config.json` and `.release-please-manifest.json`;
 4. a filter and jobs in `.github/workflows/ci.yml`, with the jobs added to `ci-ok`;
-5. an entry in `.github/dependabot.yml`, a publish job in `release.yml`, and an
-   `area:<project>` label;
+5. an entry in `.github/dependabot.yml`, a publish job in `release.yml` if it
+   publishes to a registry, and an `area:<project>` label;
 6. a row in the table in `README.md`.

@@ -1,12 +1,14 @@
 # bingekit
 
 Media libraries and tools. Each top-level directory is its own project, with its own
-language, version, changelog and releases. They share this repository and nothing else.
+language, version, changelog and releases. A project may build on another one by path,
+as mpv-launcher does on episode and library; otherwise they share only this repository.
 
 | Project | Language | What it is | Published as |
 |---|---|---|---|
 | [episode](episode/) | Rust | Episode information from media file names (general and anime release names), and a viewing order for a folder of them | `bingekit-episode` on crates.io |
 | [library](library/) | Rust | Video files in a folder, the language of each audio and subtitle track, and per-file track choice from ranked language pairings | `bingekit-library` on crates.io |
+| [mpv-launcher](mpv-launcher/) | Rust | A terminal app that plays a folder of episodes in mpv, in episode order, with audio and subtitle tracks picked for each file | Nix package and GitHub release |
 
 Releases are tagged per project as `<project>/vX.Y.Z`, for example `episode/v0.1.0`.
 

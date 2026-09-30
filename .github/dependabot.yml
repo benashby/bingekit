@@ -21,3 +21,10 @@ updates:
     groups:
       library:
         patterns: ["*"]
+  - package-ecosystem: cargo
+    directory: /mpv-launcher
+    schedule:
+      interval: weekly
+    groups:
+      mpv-launcher:
+        patterns: ["*"]

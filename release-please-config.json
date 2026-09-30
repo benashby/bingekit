@@ -19,6 +19,12 @@
       "component": "library",
       "package-name": "bingekit-library",
       "changelog-path": "CHANGELOG.md"
+    },
+    "mpv-launcher": {
+      "release-type": "rust",
+      "component": "mpv-launcher",
+      "package-name": "mpv-launcher",
+      "changelog-path": "CHANGELOG.md"
     }
   }
 }

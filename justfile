@@ -3,6 +3,7 @@
 
 mod episode
 mod library
+mod mpv-launcher
 
 default:
     @just --list --list-submodules
