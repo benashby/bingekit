@@ -43,6 +43,10 @@ impl Error for ProbeError {
     }
 }
 
+/// How many times a file is read before its tracks are taken as they are.
+/// See [`Prober::probe`].
+const ATTEMPTS: usize = 5;
+
 /// Reads tracks out of files. Create one and reuse it for a whole folder.
 pub struct Prober {
     discoverer: pbutils::Discoverer,
@@ -70,6 +74,12 @@ impl Prober {
     /// exists, so they are turned back into the three-letter bibliographic codes
     /// Matroska stores, such as `jpn`, `eng` and `fre`.
     ///
+    /// Discoverer sometimes finishes before a subtitle stream's tags arrive,
+    /// because subtitle streams are sparse, and reports the stream with no tags
+    /// at all. A busy machine makes this more likely. When any audio or
+    /// subtitle stream comes back without tags, the file is read again, up to
+    /// five times in all, and the last result is used.
+    ///
     /// # Errors
     ///
     /// Fails when the path has no absolute form or the file cannot be read.
@@ -77,10 +87,13 @@ impl Prober {
         let absolute = std::fs::canonicalize(path).map_err(|_| ProbeError::Path(path.into()))?;
         let uri = gst::glib::filename_to_uri(&absolute, None)
             .map_err(|_| ProbeError::Path(path.into()))?;
-        let info = self
-            .discoverer
-            .discover_uri(&uri)
-            .map_err(|e| ProbeError::Discover(path.into(), e))?;
+        let mut info = self.discover(path, &uri)?;
+        for _ in 1..ATTEMPTS {
+            if !missing_tags(&info) {
+                break;
+            }
+            info = self.discover(path, &uri)?;
+        }
 
         let audio = info
             .audio_streams()
@@ -100,6 +113,30 @@ impl Prober {
             subtitles,
         })
     }
+
+    fn discover(&self, path: &Path, uri: &str) -> Result<pbutils::DiscovererInfo, ProbeError> {
+        self.discoverer
+            .discover_uri(uri)
+            .map_err(|e| ProbeError::Discover(path.into(), e))
+    }
+}
+
+/// Whether any audio or subtitle stream came back with no tags at all.
+fn missing_tags(info: &pbutils::DiscovererInfo) -> bool {
+    info.audio_streams().iter().any(|s| s.tags().is_none())
+        || info.subtitle_streams().iter().any(|s| s.tags().is_none())
+}
+
+/// Turns a language code into its three-letter bibliographic form, such as
+/// `en` into `eng`. A code GStreamer doesn't know is kept as it is. An empty
+/// code stays empty, because GStreamer's lookup answers `ace` (Achinese) for
+/// the empty string.
+fn bibliographic(code: &str) -> String {
+    if code.is_empty() {
+        return String::new();
+    }
+    gstreamer_tag::language_codes::language_code_iso_639_2b(code)
+        .map_or_else(|| code.to_owned(), ToString::to_string)
 }
 
 fn track(
@@ -117,8 +154,7 @@ fn track(
                 .map(|v| v.get().to_owned())
         })
         .unwrap_or_default();
-    let language = gstreamer_tag::language_codes::language_code_iso_639_2b(&language)
-        .map_or(language, ToString::to_string);
+    let language = bibliographic(&language);
     let title = tags
         .as_ref()
         .and_then(|t| t.get::<gst::tags::Title>())
@@ -129,5 +165,20 @@ fn track(
         number,
         language,
         title,
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn codes_become_bibliographic_and_empty_stays_empty() {
+        gst::init().unwrap();
+        assert_eq!(bibliographic("en"), "eng");
+        assert_eq!(bibliographic("fr"), "fre");
+        assert_eq!(bibliographic("jpn"), "jpn");
+        assert_eq!(bibliographic("qqq"), "qqq");
+        assert_eq!(bibliographic(""), "");
     }
 }
