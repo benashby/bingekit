@@ -22,16 +22,6 @@
         ];
       };
 
-      # Probing needs GStreamer's base and good plugins at run time.
-      gstPlugins = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
-        with pkgs.gst_all_1;
-        [
-          gstreamer
-          gst-plugins-base
-          gst-plugins-good
-        ]
-      );
-
       common = {
         inherit src;
         pname = "mpv-launcher";
@@ -43,11 +33,6 @@
           sourceRoot=.
         '';
         cargoExtraArgs = "--locked";
-        nativeBuildInputs = [ pkgs.pkg-config ];
-        buildInputs = with pkgs.gst_all_1; [
-          gstreamer
-          gst-plugins-base
-        ];
       };
       cargoArtifacts = craneLib.buildDepsOnly common;
 
@@ -57,11 +42,6 @@
         // {
           inherit cargoArtifacts;
           doCheck = false;
-          nativeBuildInputs = common.nativeBuildInputs ++ [ pkgs.makeWrapper ];
-          postInstall = ''
-            wrapProgram $out/bin/mpv-launcher \
-              --prefix GST_PLUGIN_SYSTEM_PATH_1_0 : ${gstPlugins}
-          '';
           meta.mainProgram = "mpv-launcher";
         }
       );
@@ -76,7 +56,6 @@
           // {
             inherit cargoArtifacts;
             nativeCheckInputs = [ pkgs.ffmpeg ];
-            GST_PLUGIN_SYSTEM_PATH_1_0 = gstPlugins;
           }
         );
         mpv-launcher-clippy = craneLib.cargoClippy (

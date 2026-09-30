@@ -200,8 +200,8 @@ jobs:
       - run: cargo clippy --locked --all-targets --all-features -- -D warnings
       - run: cargo test --locked --features gstreamer
 
-  # mpv-launcher always links GStreamer, and its end-to-end test makes media
-  # with ffmpeg and runs a stand-in mpv.
+  # mpv-launcher's end-to-end test makes media with ffmpeg and runs a
+  # stand-in mpv.
   mpv-launcher:
     needs: changes
     if: needs.changes.outputs.mpv-launcher == 'true'
@@ -215,11 +215,7 @@ jobs:
         working-directory: mpv-launcher
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
-            gstreamer1.0-plugins-good ffmpeg
+      - run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
       - uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de # master
         with:
           toolchain: 1.98.1
@@ -240,11 +236,6 @@ jobs:
         working-directory: mpv-launcher
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends \
-            libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev \
-            gstreamer1.0-plugins-good ffmpeg
       - uses: dtolnay/rust-toolchain@02cb101ec7c40f2c49e1d9714d64511d8e1b74de # master
         with:
           toolchain: "1.92"

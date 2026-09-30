@@ -24,6 +24,10 @@ confirms and `q` quits. The default order is:
 3. Japanese - No Subtitles
 4. English + Eng Subtitles
 
+Tracks are read from Matroska headers (`.mkv`, `.mka`, `.webm`). A file in
+another format, such as `.mp4`, still plays in its place, and mpv picks its
+tracks from your own `alang` and `slang` settings.
+
 A summary of which pairing each file got comes next, then mpv starts with the
 whole folder as one playlist. Each file carries its own `--aid` and `--sid`,
 so a change of pairing between files takes effect when that file starts.
@@ -48,8 +52,8 @@ mpv listens for IPC commands on `$XDG_RUNTIME_DIR/mpv-launcher.sock`.
 
 ## Installing
 
-mpv comes from `PATH`, so your own build and `mpv.conf` apply. Reading tracks
-needs GStreamer with its base and good plugins.
+mpv comes from `PATH`, so your own build and `mpv.conf` apply. There are no
+other runtime dependencies.
 
 With Nix, the flake at the repository root has the package:
 
@@ -57,8 +61,7 @@ With Nix, the flake at the repository root has the package:
 nix run github:benashby/bingekit#mpv-launcher -- -dir ~/Videos/show
 ```
 
-The package sets GStreamer's plugin path itself. Without Nix, build it with
-Cargo; the GStreamer development files have to be installed:
+Without Nix, build it with Cargo:
 
 ```sh
 cargo install --locked --path mpv-launcher
