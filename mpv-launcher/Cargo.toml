@@ -13,7 +13,7 @@ publish = false
 
 [dependencies]
 bingekit-episode = { version = "0.1", path = "../episode" }
-bingekit-library = { version = "0.1", path = "../library", features = ["gstreamer"] }
+bingekit-library = { version = "0.1", path = "../library", features = ["matroska"] }
 ratatui = "0.30"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"

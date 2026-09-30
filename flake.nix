@@ -51,8 +51,8 @@
               just
               cargo-insta
               cargo-deny
-              # bingekit-library's gstreamer feature and its tests, which make
-              # their media with ffmpeg.
+              # bingekit-library's gstreamer feature. ffmpeg makes the media
+              # that the Matroska, GStreamer and mpv-launcher tests read.
               pkg-config
               gst_all_1.gstreamer
               gst_all_1.gst-plugins-base

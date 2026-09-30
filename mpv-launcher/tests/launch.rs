@@ -1,6 +1,6 @@
 //! Runs the real binary on a folder of generated episodes, with a stand-in
 //! `mpv` on `PATH` that records its arguments. The episodes are made with
-//! ffmpeg, and probing them needs GStreamer's base and good plugins.
+//! ffmpeg.
 
 use std::fs;
 use std::os::unix::fs::PermissionsExt;
@@ -165,4 +165,42 @@ fn an_empty_folder_stops_before_mpv() {
     assert!(!run.output.status.success());
     assert!(run.mpv_args.is_empty());
     assert!(String::from_utf8_lossy(&run.output.stdout).contains("No video files found"));
+}
+
+#[test]
+fn a_file_that_isnt_matroska_plays_in_its_place_with_mpvs_tracks() {
+    let dir = season();
+    let status = Command::new("ffmpeg")
+        .args(["-nostdin", "-loglevel", "error", "-y"])
+        .args(["-f", "lavfi", "-i", "testsrc=size=64x64:rate=5:duration=1"])
+        .args(["-f", "lavfi", "-i", "sine=frequency=440:duration=1"])
+        .args(["-c:v", "mpeg4", "-c:a", "aac"])
+        .arg(dir.path().join("[Grp] Tidewatch - 03 [1080p].mp4"))
+        .status()
+        .expect("this test needs ffmpeg on PATH");
+    assert!(status.success());
+
+    let run = launch(dir.path(), &[], "0");
+    let stdout = String::from_utf8_lossy(&run.output.stdout);
+    assert!(run.output.status.success(), "{stdout}");
+    let blocks: Vec<Vec<&str>> = run
+        .mpv_args
+        .split(|a| a == "--}")
+        .map(|b| {
+            b.iter()
+                .skip_while(|a| *a != "--{")
+                .skip(1)
+                .map(String::as_str)
+                .collect()
+        })
+        .filter(|b: &Vec<&str>| !b.is_empty())
+        .collect();
+    let mp4 = &blocks[2];
+    assert_eq!(mp4.len(), 1, "{blocks:?}");
+    assert!(mp4[0].ends_with("Tidewatch - 03 [1080p].mp4"), "{blocks:?}");
+    assert!(
+        stdout.contains("Japanese + Eng Subtitles: 3 files"),
+        "{stdout}"
+    );
+    assert!(stdout.contains("Tracks left to mpv: 1 files"), "{stdout}");
 }

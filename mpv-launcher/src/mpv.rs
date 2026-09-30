@@ -20,10 +20,20 @@ pub struct PlayOptions {
     pub screen: Option<String>,
 }
 
+/// One file in the playlist.
+#[derive(Debug, Clone, PartialEq, Eq)]
+pub enum Entry {
+    /// A file whose tracks were read, with the tracks chosen for it.
+    Chosen(Choice),
+    /// A file whose tracks could not be read, such as one that isn't
+    /// Matroska. mpv picks its tracks from its own settings.
+    Unread(PathBuf),
+}
+
 /// Builds mpv's arguments. Each file sits in its own `--{ … --}` block, so
 /// its `--aid` and `--sid` apply to that file only.
 #[must_use]
-pub fn args(choices: &[Choice], options: &PlayOptions) -> Vec<OsString> {
+pub fn args(entries: &[Entry], options: &PlayOptions) -> Vec<OsString> {
     let mut args: Vec<OsString> = Vec::new();
     if let Some(profile) = &options.profile {
         args.push(format!("--profile={profile}").into());
@@ -44,16 +54,21 @@ pub fn args(choices: &[Choice], options: &PlayOptions) -> Vec<OsString> {
         args.push(format!("--fs-screen-name={screen}").into());
         args.push("--keepaspect=yes".into());
     }
-    for choice in choices {
+    for entry in entries {
         args.push("--{".into());
-        if let Some(audio) = choice.audio {
-            args.push(format!("--aid={audio}").into());
+        match entry {
+            Entry::Chosen(choice) => {
+                if let Some(audio) = choice.audio {
+                    args.push(format!("--aid={audio}").into());
+                }
+                match choice.subtitles {
+                    Some(sub) => args.push(format!("--sid={sub}").into()),
+                    None => args.push("--sid=no".into()),
+                }
+                args.push(choice.path.clone().into());
+            }
+            Entry::Unread(path) => args.push(path.clone().into()),
         }
-        match choice.subtitles {
-            Some(sub) => args.push(format!("--sid={sub}").into()),
-            None => args.push("--sid=no".into()),
-        }
-        args.push(choice.path.clone().into());
         args.push("--}".into());
     }
     args
@@ -63,20 +78,20 @@ pub fn args(choices: &[Choice], options: &PlayOptions) -> Vec<OsString> {
 mod tests {
     use super::*;
 
-    fn choices() -> Vec<Choice> {
+    fn choices() -> Vec<Entry> {
         vec![
-            Choice {
+            Entry::Chosen(Choice {
                 path: "ep01.mkv".into(),
                 audio: Some(2),
                 subtitles: Some(1),
                 pairing: Some(0),
-            },
-            Choice {
+            }),
+            Entry::Chosen(Choice {
                 path: "ep02.mkv".into(),
                 audio: Some(1),
                 subtitles: None,
                 pairing: Some(1),
-            },
+            }),
         ]
     }
 
@@ -141,13 +156,20 @@ mod tests {
 
     #[test]
     fn a_file_without_audio_gets_no_aid() {
-        let silent = Choice {
+        let silent = Entry::Chosen(Choice {
             path: "x.mkv".into(),
             audio: None,
             subtitles: None,
             pairing: None,
-        };
+        });
         let args = strings(&args(&[silent], &PlayOptions::default()));
         assert_eq!(args, ["--{", "--sid=no", "x.mkv", "--}"]);
+    }
+
+    #[test]
+    fn an_unread_file_leaves_its_tracks_to_mpv() {
+        let unread = Entry::Unread("clip.mp4".into());
+        let args = strings(&args(&[unread], &PlayOptions::default()));
+        assert_eq!(args, ["--{", "clip.mp4", "--}"]);
     }
 }

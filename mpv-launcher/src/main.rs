@@ -7,16 +7,16 @@ mod hyprland;
 mod mpv;
 mod ui;
 
+use bingekit_library::matroska::{ReadError, read_tracks};
+use bingekit_library::{
+    MediaFile, Pairing, ScanOptions, choose_tracks, default_pairings, scan, summary,
+};
 use std::io::IsTerminal;
 use std::path::PathBuf;
 use std::process::{Command, ExitCode};
-use std::time::Duration;
-
-use bingekit_library::probe::Prober;
-use bingekit_library::{ScanOptions, choose_tracks, default_pairings, scan, summary};
 
 use args::{Options, Parsed};
-use mpv::PlayOptions;
+use mpv::{Entry, PlayOptions};
 
 /// The most files one playlist takes.
 const MAX_FILES: usize = 100;
@@ -62,18 +62,20 @@ fn run(options: &Options) -> Result<ExitCode, String> {
     println!("Found {} video files", videos.len());
     let videos = episodes::in_viewing_order(videos);
 
+    // Tracks are read from Matroska headers. A file that isn't Matroska, or
+    // can't be read, still plays, with mpv picking its tracks.
     println!("Analyzing audio and subtitle tracks...");
-    let prober = Prober::new(Duration::from_secs(10)).map_err(|e| e.to_string())?;
-    let mut files = Vec::with_capacity(videos.len());
-    for path in &videos {
-        match prober.probe(path) {
-            Ok(file) => files.push(file),
-            Err(e) => eprintln!("Skipping {}: {e}", path.display()),
-        }
-    }
-    if files.is_empty() {
-        return Err("No valid files to analyze".to_owned());
-    }
+    let read: Vec<_> = videos
+        .iter()
+        .map(|path| match read_tracks(path) {
+            Ok(file) => Some(file),
+            Err(ReadError::Parse(..)) => None,
+            Err(e) => {
+                eprintln!("Warning: {e}");
+                None
+            }
+        })
+        .collect();
 
     // The screens need a terminal. Without one (a script or a pipe), the
     // defaults apply: a normal window, no profile unless -profile gave one,
@@ -129,16 +131,11 @@ fn run(options: &Options) -> Result<ExitCode, String> {
         defaults
     };
 
-    let choices = choose_tracks(&files, &pairings);
-    println!("Track selection summary:");
-    for (label, count) in summary(&choices, &pairings) {
-        println!("  {label}: {count} files");
-    }
-    println!();
+    let entries = playlist(videos, &read, &pairings);
 
-    println!("Launching MPV with {} files...\n", choices.len());
+    println!("Launching MPV with {} files...\n", entries.len());
     let status = Command::new("mpv")
-        .args(mpv::args(&choices, &play))
+        .args(mpv::args(&entries, &play))
         .status()
         .map_err(|e| format!("could not start mpv: {e}"))?;
     if !status.success() {
@@ -146,6 +143,32 @@ fn run(options: &Options) -> Result<ExitCode, String> {
     }
     println!("\nPlayback finished");
     Ok(ExitCode::SUCCESS)
+}
+
+/// Chooses tracks for every file that was read, prints the summary, and puts
+/// each file back in its place in the playlist.
+fn playlist(videos: Vec<PathBuf>, read: &[Option<MediaFile>], pairings: &[Pairing]) -> Vec<Entry> {
+    let files: Vec<_> = read.iter().flatten().cloned().collect();
+    let choices = choose_tracks(&files, pairings);
+    println!("Track selection summary:");
+    for (label, count) in summary(&choices, pairings) {
+        println!("  {label}: {count} files");
+    }
+    let unread = read.iter().filter(|r| r.is_none()).count();
+    if unread > 0 {
+        println!("  Tracks left to mpv: {unread} files");
+    }
+    println!();
+
+    let mut chosen = choices.into_iter();
+    videos
+        .into_iter()
+        .zip(read)
+        .map(|(path, file)| match file {
+            Some(_) => Entry::Chosen(chosen.next().expect("one choice per read file")),
+            None => Entry::Unread(path),
+        })
+        .collect()
 }
 
 fn canceled() -> ExitCode {
