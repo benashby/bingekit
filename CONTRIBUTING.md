@@ -64,10 +64,12 @@ the secret while it exists and Trusted Publishing otherwise.
 
 Until a scaffold script exists, a new project needs:
 
-1. its directory, with a README, a CHANGELOG, a copy of LICENSE, its language's own
-   policy files (for Rust, a `deny.toml`), and a `nix.nix` if Nix should build it;
+1. its directory, with a README, a copy of LICENSE, its language's own policy files
+   (for Rust, a `deny.toml`), and a `nix.nix` if Nix should build it;
 2. a `mod` line in the root `justfile`;
-3. an entry in `release-please-config.json` and `.release-please-manifest.json`;
+3. an entry in `release-please-config.json` and `.release-please-manifest.json`. Don't
+   add a CHANGELOG: release-please writes it in the first release pull request, and a
+   file it didn't write ends up appended below its entries;
 4. a filter and jobs in `.github/workflows/ci.yml`, with the jobs added to `ci-ok`;
 5. an entry in `.github/dependabot.yml`, a publish job in `release.yml` if it
    publishes to a registry, and an `area:<project>` label;
