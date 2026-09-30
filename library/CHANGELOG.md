@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/benashby/bingekit/compare/library/v0.1.0...library/v0.2.0) (2026-09-30)
+
+
+### Features
+
+* **library:** read Matroska tracks from the file headers ([#13](https://github.com/benashby/bingekit/issues/13)) ([af81270](https://github.com/benashby/bingekit/commit/af81270e94dbafe53ea04c254fbb095bf1f593cc))
+
 ## 0.1.0 (2026-09-30)
 
 
