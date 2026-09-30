@@ -52,7 +52,9 @@ especially:
 
 Pushing to `main` updates one release pull request per changed project. Merging it tags
 `<project>/vX.Y.Z`, creates the GitHub release, and publishes to the project's registry
-from `release.yml`.
+from `release.yml`. release-please runs as the bingekit-release GitHub App, so its pull
+requests get CI like any other. The app's client ID is the `RELEASE_APP_CLIENT_ID`
+variable and its key the `RELEASE_APP_PRIVATE_KEY` secret.
 
 A crate's first crates.io release needs an API token, because Trusted Publishing can
 only be set up for a crate that already exists. Store the token as `CARGO_REGISTRY_TOKEN`
