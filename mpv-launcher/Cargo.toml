@@ -1,6 +1,6 @@
 [package]
 name = "mpv-launcher"
-version = "0.1.0"
+version = "0.2.0"
 description = "Play a folder of episodes in mpv, in episode order, with audio and subtitle tracks picked per file from ranked language pairings"
 readme = "README.md"
 edition = "2024"
