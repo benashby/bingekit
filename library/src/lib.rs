@@ -2,9 +2,10 @@
 //! describing their audio and subtitle tracks, and picking tracks for each file
 //! from a ranked list of language pairings.
 //!
-//! Episode order comes from `bingekit-episode`. With the `gstreamer` feature,
-//! `probe::Prober` reads a real file's tracks through GStreamer's Discoverer.
-//! Without it, the caller builds each [`MediaFile`] from its own prober.
+//! Episode order comes from `bingekit-episode`. Two optional features read a
+//! real file's tracks: `matroska` reads a Matroska file's headers in pure
+//! Rust, and `gstreamer` asks GStreamer's Discoverer about any format it can
+//! play. Without either, the caller builds each [`MediaFile`] itself.
 //!
 //! ```
 //! use bingekit_library::{MediaFile, Track, TrackKind, default_pairings, choose_tracks};
@@ -27,6 +28,8 @@
 #[doc = include_str!("../README.md")]
 pub struct ReadmeDoctests;
 
+#[cfg(feature = "matroska")]
+pub mod matroska;
 pub mod playlist;
 pub mod priority;
 #[cfg(feature = "gstreamer")]

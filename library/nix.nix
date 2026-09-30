@@ -37,6 +37,16 @@
     {
       checks = {
         library-test = craneLib.cargoTest (common // { inherit cargoArtifacts; });
+        # The matroska feature is pure Rust. Its tests make their media with
+        # ffmpeg.
+        library-matroska-test = craneLib.cargoTest (
+          common
+          // {
+            inherit cargoArtifacts;
+            cargoExtraArgs = "--locked --features matroska";
+            nativeCheckInputs = [ pkgs.ffmpeg ];
+          }
+        );
         library-clippy = craneLib.cargoClippy (
           common
           // {

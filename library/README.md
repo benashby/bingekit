@@ -24,10 +24,15 @@ assert_eq!(choices[0].audio, Some(1));
 assert_eq!(choices[0].subtitles, None);
 ```
 
-With the `gstreamer` feature, `probe::Prober` reads a file's tracks through
-GStreamer's Discoverer, turning GStreamer's two-letter language codes back into
-the three-letter ones Matroska stores. It needs GStreamer's development files to
-build. Without the feature, the caller builds each `MediaFile` itself. Episode
+Two optional features read a real file's tracks:
+
+- `matroska`: `matroska::read_tracks` reads the track entries in a Matroska
+  file's headers (`.mkv`, `.mka`, `.webm`). It is pure Rust and needs no system
+  libraries, and it only reads, so the answer is the same on every run.
+- `gstreamer`: `probe::Prober` asks GStreamer's Discoverer, which covers every
+  format GStreamer can play. It needs GStreamer's development files to build.
+
+Without either feature, the caller builds each `MediaFile` itself. Episode
 order comes from
 [bingekit-episode](https://github.com/benashby/bingekit/tree/main/episode).
 
