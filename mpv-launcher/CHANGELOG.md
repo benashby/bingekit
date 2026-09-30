@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.1](https://github.com/benashby/bingekit/compare/mpv-launcher/v0.2.0...mpv-launcher/v0.2.1) (2026-09-30)
+
+
+### Bug Fixes
+
+* **mpv-launcher:** depend on episode and library by path only ([#18](https://github.com/benashby/bingekit/issues/18)) ([296dfb1](https://github.com/benashby/bingekit/commit/296dfb1563cd0589c0eca63f3e58ad2ec1f331f3))
+
 ## [0.2.0](https://github.com/benashby/bingekit/compare/mpv-launcher/v0.1.0...mpv-launcher/v0.2.0) (2026-09-30)
 
 
