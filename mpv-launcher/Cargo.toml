@@ -12,8 +12,8 @@ authors = ["Ben Ashby <mail@benashby.com>"]
 publish = false
 
 [dependencies]
-bingekit-episode = { version = "0.1", path = "../episode" }
-bingekit-library = { version = "0.1", path = "../library", features = ["matroska"] }
+bingekit-episode = { path = "../episode" }
+bingekit-library = { path = "../library", features = ["matroska"] }
 ratatui = "0.30"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
