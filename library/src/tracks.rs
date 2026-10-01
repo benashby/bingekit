@@ -44,6 +44,17 @@ impl Track {
     pub fn language(&self) -> Option<String> {
         effective_language(&self.language, &self.title)
     }
+
+    /// Whether this is a signs-and-songs subtitle track, which translates
+    /// on-screen text and song lyrics but not the dialogue. Its title says so
+    /// with the whole word `signs`, `songs` or `forced`.
+    #[must_use]
+    pub fn is_signs(&self) -> bool {
+        self.title
+            .split(|c: char| !c.is_alphanumeric())
+            .map(str::to_ascii_lowercase)
+            .any(|word| matches!(word.as_str(), "signs" | "songs" | "forced"))
+    }
 }
 
 /// The audio and subtitle tracks of one file.
@@ -74,6 +85,23 @@ impl MediaFile {
         self.tracks(kind)
             .iter()
             .find(|t| t.language().as_deref() == Some(language))
+    }
+
+    /// The first subtitle track in `language` that covers the dialogue, which
+    /// skips signs-and-songs tracks.
+    #[must_use]
+    pub fn find_dialogue(&self, language: &str) -> Option<&Track> {
+        self.subtitles
+            .iter()
+            .find(|t| !t.is_signs() && t.language().as_deref() == Some(language))
+    }
+
+    /// The first signs-and-songs subtitle track in `language`.
+    #[must_use]
+    pub fn find_signs(&self, language: &str) -> Option<&Track> {
+        self.subtitles
+            .iter()
+            .find(|t| t.is_signs() && t.language().as_deref() == Some(language))
     }
 
     /// Whether the file has a track of `kind` in `language`.

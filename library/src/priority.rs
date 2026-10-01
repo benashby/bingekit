@@ -9,7 +9,8 @@ pub struct Pairing {
     pub id: String,
     /// The audio language, a three-letter code.
     pub audio: String,
-    /// The subtitle language, or `None` for no subtitles.
+    /// The subtitle language, or `None` for no dialogue subtitles. Without
+    /// them, a signs-and-songs track in the audio language still turns on.
     pub subtitles: Option<String>,
     /// What the user sees, such as `Japanese + Eng Subtitles`.
     pub label: String,
@@ -27,20 +28,21 @@ impl Pairing {
         }
     }
 
-    /// The track numbers this pairing picks in `file`: the audio track, and the
-    /// subtitle track or `None` when subtitles are off. Returns `None` when the
-    /// file lacks the audio language, or lacks the subtitle language the
-    /// pairing asks for.
+    /// The track numbers this pairing picks in `file`: the audio track, and a
+    /// subtitle track or `None`. A pairing with a subtitle language takes the
+    /// first dialogue track in it and never a signs-and-songs track. A pairing
+    /// without one takes the signs-and-songs track in the audio language, if
+    /// the file has one, so English audio still translates on-screen text.
+    /// Returns `None` when the file lacks the audio language, or lacks dialogue
+    /// subtitles in the language the pairing asks for.
     #[must_use]
     pub fn tracks_in(&self, file: &MediaFile) -> Option<(usize, Option<usize>)> {
         let audio = file.find(TrackKind::Audio, &self.audio)?.number;
-        match &self.subtitles {
-            None => Some((audio, None)),
-            Some(lang) => {
-                let subtitles = file.find(TrackKind::Subtitle, lang)?.number;
-                Some((audio, Some(subtitles)))
-            }
-        }
+        let subtitles = match &self.subtitles {
+            None => file.find_signs(&self.audio),
+            Some(lang) => Some(file.find_dialogue(lang)?),
+        };
+        Some((audio, subtitles.map(|t| t.number)))
     }
 
     /// Whether `file` has the tracks this pairing needs.

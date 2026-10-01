@@ -75,3 +75,14 @@ fn japanese_wins_when_a_title_names_both() {
         Some("jpn")
     );
 }
+
+#[test]
+fn signs_tracks_are_told_apart_by_title() {
+    let ep = fan_encode_episode(1);
+    let signs: Vec<_> = ep.subtitles.iter().map(Track::is_signs).collect();
+    assert_eq!(signs, [false, true, false]);
+    assert!(Track::new(TrackKind::Subtitle, 1, "eng", "English [Forced]").is_signs());
+    assert!(!Track::new(TrackKind::Subtitle, 1, "eng", "Design notes").is_signs());
+    assert_eq!(ep.find_dialogue("eng").map(|t| t.number), Some(1));
+    assert_eq!(ep.find_signs("eng").map(|t| t.number), Some(2));
+}
