@@ -24,6 +24,9 @@ confirms and `q` quits. The default order is:
 3. Japanese - No Subtitles
 4. English + Eng Subtitles
 
+English - No Subtitles still turns on the file's English signs-and-songs
+track if it has one, so on-screen text and song lyrics are translated.
+
 Tracks are read from Matroska headers (`.mkv`, `.mka`, `.webm`). A file in
 another format, such as `.mp4`, still plays in its place, and mpv picks its
 tracks from your own `alang` and `slang` settings.
