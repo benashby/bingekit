@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/benashby/bingekit/compare/library/v0.2.0...library/v0.3.0) (2026-10-01)
+
+
+### Features
+
+* **library:** turn on signs and songs for pairings without subtitles ([3de7ea9](https://github.com/benashby/bingekit/commit/3de7ea94d05cd927eb9fc61e05276fb1dabddc2d))
+
 ## [0.2.0](https://github.com/benashby/bingekit/compare/library/v0.1.0...library/v0.2.0) (2026-09-30)
 
 
