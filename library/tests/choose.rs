@@ -105,3 +105,53 @@ fn summary_counts_in_pairing_order_then_fallback() {
         ]
     );
 }
+
+/// Dual audio, with the signs-and-songs track listed before the full one.
+fn signs_first(name: &str) -> MediaFile {
+    file(
+        name,
+        &[("jpn", ""), ("eng", "")],
+        &[("eng", "Signs & Songs"), ("eng", "Full Subtitles")],
+    )
+}
+
+#[test]
+fn english_audio_without_subtitles_still_shows_signs() {
+    let eng_none = &default_pairings()[1];
+    assert_eq!(
+        eng_none.tracks_in(&signs_first("a.mkv")),
+        Some((2, Some(1)))
+    );
+    let dub_only = file("b.mkv", &[("eng", "")], &[]);
+    assert_eq!(eng_none.tracks_in(&dub_only), Some((1, None)));
+}
+
+#[test]
+fn full_subtitles_skip_the_signs_track() {
+    let pairings = default_pairings();
+    assert_eq!(
+        pairings[0].tracks_in(&signs_first("a.mkv")),
+        Some((1, Some(2)))
+    );
+    assert_eq!(
+        pairings[3].tracks_in(&signs_first("a.mkv")),
+        Some((2, Some(2)))
+    );
+}
+
+#[test]
+fn a_signs_track_alone_is_not_full_subtitles() {
+    let signs_only = file("a.mkv", &[("jpn", ""), ("eng", "")], &[("eng", "Signs")]);
+    let choices = choose_tracks(&[signs_only], &default_pairings());
+    assert_eq!(
+        default_pairings()[choices[0].pairing.unwrap()].id,
+        "eng_none"
+    );
+    assert_eq!((choices[0].audio, choices[0].subtitles), (Some(2), Some(1)));
+}
+
+#[test]
+fn japanese_audio_without_subtitles_ignores_english_signs() {
+    let jpn_none = &default_pairings()[2];
+    assert_eq!(jpn_none.tracks_in(&signs_first("a.mkv")), Some((1, None)));
+}

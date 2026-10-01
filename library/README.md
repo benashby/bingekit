@@ -9,7 +9,9 @@ track's language comes from its title when the title names one, because fan
 encodes often carry a wrong tag. `choose_tracks` then picks tracks for every
 file from a ranked list of language pairings, such as Japanese audio with
 English subtitles before English audio alone, and falls back to a file's first
-tracks when no pairing fits.
+tracks when no pairing fits. A pairing without subtitles still turns on a
+signs-and-songs track in its audio language, and a pairing with subtitles
+skips signs tracks when it looks for the dialogue.
 
 ```rust
 use bingekit_library::{MediaFile, Track, TrackKind, choose_tracks, default_pairings};
