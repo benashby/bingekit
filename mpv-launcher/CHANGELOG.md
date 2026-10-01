@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/benashby/bingekit/compare/mpv-launcher/v0.2.1...mpv-launcher/v0.3.0) (2026-10-01)
+
+
+### Features
+
+* **mpv-launcher:** show signs and songs with English audio alone ([b6ead39](https://github.com/benashby/bingekit/commit/b6ead3938fb2a141d94f7f85f5bf91aff3f80caf))
+
 ## [0.2.1](https://github.com/benashby/bingekit/compare/mpv-launcher/v0.2.0...mpv-launcher/v0.2.1) (2026-09-30)
 
 
