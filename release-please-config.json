@@ -12,13 +12,27 @@
       "release-type": "rust",
       "component": "episode",
       "package-name": "bingekit-episode",
-      "changelog-path": "CHANGELOG.md"
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        {
+          "type": "toml",
+          "path": "/mpv-launcher/Cargo.lock",
+          "jsonpath": "$.package[?(@.name.value=='bingekit-episode')].version"
+        }
+      ]
     },
     "library": {
       "release-type": "rust",
       "component": "library",
       "package-name": "bingekit-library",
-      "changelog-path": "CHANGELOG.md"
+      "changelog-path": "CHANGELOG.md",
+      "extra-files": [
+        {
+          "type": "toml",
+          "path": "/mpv-launcher/Cargo.lock",
+          "jsonpath": "$.package[?(@.name.value=='bingekit-library')].version"
+        }
+      ]
     },
     "mpv-launcher": {
       "release-type": "rust",

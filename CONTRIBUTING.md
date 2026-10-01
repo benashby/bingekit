@@ -71,7 +71,11 @@ Until a scaffold script exists, a new project needs:
 2. a `mod` line in the root `justfile`;
 3. an entry in `release-please-config.json` and `.release-please-manifest.json`. Don't
    add a CHANGELOG: release-please writes it in the first release pull request, and a
-   file it didn't write ends up appended below its entries;
+   file it didn't write ends up appended below its entries. If another project depends
+   on the new one by path, give the new one an `extra-files` entry that bumps its
+   version in that project's `Cargo.lock`, as episode and library do for
+   mpv-launcher, or `--locked` fails on every release pull request. The JSONPath
+   compares `@.name.value` because release-please's TOML parser wraps each value;
 4. a filter and jobs in `.github/workflows/ci.yml`, with the jobs added to `ci-ok`;
 5. an entry in `.github/dependabot.yml`, a publish job in `release.yml` if it
    publishes to a registry, and an `area:<project>` label;
