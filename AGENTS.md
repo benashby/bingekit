@@ -14,3 +14,5 @@ rules.
   test inside the project you change. Do not add a repository-wide Cargo workspace.
 - Commits are Conventional Commits scoped to one project, for example
   `fix(episode): …`.
+- Releases and their known failure modes are in `.claude/skills/releasing/SKILL.md`. Read
+  it before merging a release pull request or changing `release-please-config.json`.
