@@ -30,7 +30,8 @@ pub fn is_video_file(name: &Path) -> bool {
         .is_some_and(|e| VIDEO_EXTENSIONS.contains(&e.to_ascii_lowercase().as_str()))
 }
 
-/// The video files in `dir`, as absolute paths in sorted order.
+/// The video files in `dir`, as absolute paths in sorted order. Release samples
+/// (`name.sample.mkv`, `name-sample.mkv`) are left out.
 ///
 /// # Errors
 ///
@@ -64,16 +65,36 @@ fn walk(dir: &Path, options: ScanOptions, top: bool, found: &mut Vec<PathBuf>) -
         if kind.is_symlink() {
             // A link is followed only to a file. A link to a folder is skipped
             // either way, so the walk cannot loop.
-            if options.follow_symlinks && path.is_file() && is_video_file(&path) {
+            if options.follow_symlinks && path.is_file() && wanted(&path) {
                 found.push(path);
             }
         } else if kind.is_dir() {
             if options.recursive {
                 walk(&path, options, false, found)?;
             }
-        } else if is_video_file(&path) {
+        } else if wanted(&path) {
             found.push(path);
         }
     }
     Ok(())
+}
+
+fn wanted(path: &Path) -> bool {
+    is_video_file(path) && !is_release_sample(path)
+}
+
+/// A scene release's sample: a short clip named after the release, with `sample`
+/// joined to it by a dot, dash or underscore. A space doesn't count, so an episode
+/// titled "Free Sample" stays.
+fn is_release_sample(path: &Path) -> bool {
+    let Some(stem) = path.file_stem().and_then(|s| s.to_str()) else {
+        return false;
+    };
+    let stem = stem.to_ascii_lowercase();
+    ["sample.", "sample-", "sample_"]
+        .iter()
+        .any(|p| stem.starts_with(p))
+        || [".sample", "-sample", "_sample"]
+            .iter()
+            .any(|s| stem.ends_with(s))
 }
