@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: The.Night.Ferry.S01E02.1080p.10bit.WEBRip.6CH.x265.HEVC-PZA.mkv
+expression: ep
+---
+Episode {
+    file_name: "The.Night.Ferry.S01E02.1080p.10bit.WEBRip.6CH.x265.HEVC-PZA.mkv",
+    title: Some(
+        "The Night Ferry",
+    ),
+    season: Some(
+        1,
+    ),
+    episodes: [
+        2,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "PZA",
+    ),
+}

@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Paper Lantern Club - Night Shift - S03E25 - The Lantern Parade.mkv
+expression: ep
+---
+Episode {
+    file_name: "Paper Lantern Club - Night Shift - S03E25 - The Lantern Parade.mkv",
+    title: Some(
+        "Paper Lantern Club",
+    ),
+    season: Some(
+        3,
+    ),
+    episodes: [
+        25,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

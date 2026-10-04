@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Willow Lane - S01E08 - I Don’t Want to Be Anything but Brave.mkv
+expression: ep
+---
+Episode {
+    file_name: "Willow Lane - S01E08 - I Don’t Want to Be Anything but Brave.mkv",
+    title: Some(
+        "Willow Lane",
+    ),
+    season: Some(
+        1,
+    ),
+    episodes: [
+        8,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

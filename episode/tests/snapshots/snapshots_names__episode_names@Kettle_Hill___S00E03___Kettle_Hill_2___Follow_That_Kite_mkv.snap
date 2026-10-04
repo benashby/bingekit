@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Kettle Hill - S00E03 - Kettle Hill 2 - Follow That Kite.mkv
+expression: ep
+---
+Episode {
+    file_name: "Kettle Hill - S00E03 - Kettle Hill 2 - Follow That Kite.mkv",
+    title: Some(
+        "Kettle Hill",
+    ),
+    season: Some(
+        0,
+    ),
+    episodes: [
+        3,
+    ],
+    kind: Special,
+    version: None,
+    part: None,
+    release_group: None,
+}

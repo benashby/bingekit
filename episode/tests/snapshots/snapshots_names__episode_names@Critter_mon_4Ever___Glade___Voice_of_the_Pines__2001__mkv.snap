@@ -1,0 +1,17 @@
+---
+source: tests/snapshots_names.rs
+description: Critterémon 4Ever - Glade - Voice of the Pines (2001).mkv
+expression: ep
+---
+Episode {
+    file_name: "Critterémon 4Ever - Glade - Voice of the Pines (2001).mkv",
+    title: Some(
+        "Critterémon 4Ever",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: None,
+}

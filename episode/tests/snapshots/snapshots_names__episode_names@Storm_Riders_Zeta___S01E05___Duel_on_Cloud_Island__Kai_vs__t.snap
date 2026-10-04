@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Storm Riders Zeta - S01E05 - Duel on Cloud Island! Kai vs. the Tempest.mkv
+expression: ep
+---
+Episode {
+    file_name: "Storm Riders Zeta - S01E05 - Duel on Cloud Island! Kai vs. the Tempest.mkv",
+    title: Some(
+        "Storm Riders Zeta",
+    ),
+    season: Some(
+        1,
+    ),
+    episodes: [
+        5,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

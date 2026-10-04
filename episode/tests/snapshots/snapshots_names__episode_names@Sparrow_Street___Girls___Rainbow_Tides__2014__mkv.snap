@@ -1,0 +1,17 @@
+---
+source: tests/snapshots_names.rs
+description: Sparrow Street - Girls - Rainbow Tides (2014).mkv
+expression: ep
+---
+Episode {
+    file_name: "Sparrow Street - Girls - Rainbow Tides (2014).mkv",
+    title: Some(
+        "Sparrow Street",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: None,
+}

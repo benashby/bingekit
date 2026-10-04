@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: "Whispering Pines (1995) 1080p BDRip x265 AAC 5.1 Toki [SEW].mkv"
+expression: ep
+---
+Episode {
+    file_name: "Whispering Pines (1995) 1080p BDRip x265 AAC 5.1 Toki [SEW].mkv",
+    title: Some(
+        "Whispering Pines",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "SEW",
+    ),
+}

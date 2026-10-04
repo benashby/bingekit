@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "Brass Harbor - S02E07 - The Ferryman's Ledger.mkv"
+expression: ep
+---
+Episode {
+    file_name: "Brass Harbor - S02E07 - The Ferryman's Ledger.mkv",
+    title: Some(
+        "Brass Harbor",
+    ),
+    season: Some(
+        2,
+    ),
+    episodes: [
+        7,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

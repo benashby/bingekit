@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: "Tidewatch (2008) - S07E08 - Anchors, Part 3 Low Water (1080p BluRay x265 Kelp).mkv"
+expression: ep
+---
+Episode {
+    file_name: "Tidewatch (2008) - S07E08 - Anchors, Part 3 Low Water (1080p BluRay x265 Kelp).mkv",
+    title: Some(
+        "Tidewatch",
+    ),
+    season: Some(
+        7,
+    ),
+    episodes: [
+        8,
+    ],
+    kind: Regular,
+    version: None,
+    part: Some(
+        3,
+    ),
+    release_group: None,
+}

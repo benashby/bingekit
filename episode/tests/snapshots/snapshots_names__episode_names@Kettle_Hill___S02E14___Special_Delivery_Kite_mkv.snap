@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Kettle Hill - S02E14 - Special Delivery Kite.mkv
+expression: ep
+---
+Episode {
+    file_name: "Kettle Hill - S02E14 - Special Delivery Kite.mkv",
+    title: Some(
+        "Kettle Hill",
+    ),
+    season: Some(
+        2,
+    ),
+    episodes: [
+        14,
+    ],
+    kind: Special,
+    version: None,
+    part: None,
+    release_group: None,
+}

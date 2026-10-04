@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Brass Harbor - S02E27 - Signals from the Reef (2).mp4
+expression: ep
+---
+Episode {
+    file_name: "Brass Harbor - S02E27 - Signals from the Reef (2).mp4",
+    title: Some(
+        "Brass Harbor",
+    ),
+    season: Some(
+        2,
+    ),
+    episodes: [
+        27,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

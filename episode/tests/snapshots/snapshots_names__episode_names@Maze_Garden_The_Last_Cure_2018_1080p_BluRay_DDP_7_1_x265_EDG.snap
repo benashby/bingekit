@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: Maze.Garden.The.Last.Cure.2018.1080p.BluRay.DDP.7.1.x265-EDGE2021.mkv
+expression: ep
+---
+Episode {
+    file_name: "Maze.Garden.The.Last.Cure.2018.1080p.BluRay.DDP.7.1.x265-EDGE2021.mkv",
+    title: Some(
+        "Maze Garden The Last Cure 2018",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "EDGE2021",
+    ),
+}

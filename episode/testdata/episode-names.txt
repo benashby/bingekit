@@ -18,3 +18,57 @@ Show Name - 2x05 - Title.mkv
 Show.Name.S00E01.Special.mkv
 # Films
 Movie.2024.1080p.BluRay.x264-GROUP.mkv
+# Shapes from a home library of renamed and released files
+# Renamed: Show - SxxEyy - Episode Title, in mkv, mp4 and avi
+Brass Harbor - S02E07 - The Ferryman's Ledger.mkv
+Kettle Hill - S06E13 - Soup Days II - The Long Ladle.avi
+Paper Lantern Club - Night Shift - S03E25 - The Lantern Parade.mkv
+Storm Riders Zeta - S01E05 - Duel on Cloud Island! Kai vs. the Tempest.mkv
+Willow Lane - S01E08 - I Don’t Want to Be Anything but Brave.mkv
+Willow Lane - S01E07 - I’ve Been Making Plans, but Each Plan Has Helped Me HDTV-720p Proper.mkv
+Moss Garden (2026) - S01E08.mkv
+Tidewatch (2008) - S03E05 - Seasick at Sea (1080p BluRay x265 Kelp).mkv
+Tidewatch (2008) - S07E08 - Anchors, Part 3 Low Water (1080p BluRay x265 Kelp).mkv
+Brass Harbor - S02E27 - Signals from the Reef (2).mp4
+Tidewatch - S05E23 - Reunion (Part 1).mp4
+Kettle Hill - S00E03 - Kettle Hill 2 - Follow That Kite.mkv
+Kettle Hill - S02E14 - Special Delivery Kite.mkv
+Brass Harbor - S08E06 - 1958 - A Harbor Odyssey.mkv
+Kettle Hill - S10E01 - Pan(cake) Reform.mkv
+# Multi-episode files
+Brass Harbor - S07E15-E16 - Brass Harbor - The Opera.mkv
+Sprout Squad! - S02E18-E23 - Serious Snacks & Harvest Day.mkv
+Sprout Squad! - S02E03-E05.mkv
+Sprout Squad! S01E05-E06.mkv
+Sprout Squad! S01E42,E40.mkv
+# Scene names, dotted and spaced, and a sample
+The.Night.Ferry.S01E02.1080p.10bit.WEBRip.6CH.x265.HEVC-PZA.mkv
+Castaway.Isle.S49E03.1080p.WEB.h264-EDNA-xyz.mkv
+Castaway.Isle.S49E07.Blood.in.the.Water.1080p.AMZN.WEB-DL.DDP5.1.H.264-BLOOMS.mkv
+Castaway Isle S49E06 The Devils Boots 1080p AMZN WEB-DL DDP5 1 H 264-FLAX.mkv
+Castaway Isle S49E12 1080p WEB-DL-[Ferryman1980] mkv.mkv
+The Grand Village Bake S16E02 720p WEB H264 JFX TVZE.mkv
+the.night.ferry.s02e08.1080p.web.h264-dorado.sample.mkv
+# A Japanese broadcast capture
+[capsgrp] Pocket Critters (2023) - 003-004 (TVK 1440x1080 MPEG2 AAC).ts
+# Films: renamed, released and encoded
+Harbor Lights 2 (2014).mkv
+Sparrow Street - Girls - Rainbow Tides (2014).mkv
+Sparrow Street Girls – Rainbow Tides (2014).mkv
+Stormbreakers- (2025).mkv
+Critterémon 4Ever - Glade - Voice of the Pines (2001).mkv
+Hero League x Moon Guard - Knights & Hunters, Part Two (2023).mkv
+Gearwork Knights (2011) REPACK2 (1080p BluRay x265 HEVC 10bit AAC 5.1 Tigrol).mkv
+The Lord of the Lanterns - The Fellowship of the Wick (2001) Extended (2160p UHD BluRay x265 DV HDR DDP 7.1 English - Weaslee HONK).mkv
+Whispering Pines (1995) 1080p BDRip x265 AAC 5.1 Toki [SEW].mkv
+The Copper Lantern (2010) (1080p BDRip x265 10bit AC3 5.1 DUAL - Toki)[TAoX].mkv
+The Tale of the Bamboo Moon (2013) 1080p BDRip x265 10bit AC3 5.1 - Toki.mkv
+Maze Garden - The Burning Hedge (2015) (1080p BDRip DDP7.1. x265) - Valle.mkv
+Maze.Garden.The.Last.Cure.2018.1080p.BluRay.DDP.7.1.x265-EDGE2021.mkv
+Paper.Kites.2004.REPACK.DUAL.1080p.BluRay.x265.DDP5.1-B3ARD.mkv
+The.Harvest.Games.Ember-Part.1.2014.REPACK.1080p.BluRay.DTS.X264-EbX.mkv
+Sky.Rover.The.Legend.of.Ash.2026.1080p.PMNTP.WEBRip.AAC2.0.H264-[LEEK].mp4
+Lantern Keepers and the Hollow Crown (2009)(1080p 4KBDRip DV+HDR10 x265 crf19 4MAX S88 E-AC3 5.1)[cHorsy].mkv
+Lantern Keepers and the Stone (2001)[Theatrical Cut](1080p 4KBDRip DV+HDR10 HYBRID x265 crf19 4MAX S88 E-AC3 5.1)[cHorsy].mkv
+Saltmarsh Choir - Riverside Players - 2023.mkv
+Kite Panda 3_t05.mkv

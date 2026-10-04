@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: The Tale of the Bamboo Moon (2013) 1080p BDRip x265 10bit AC3 5.1 - Toki.mkv
+expression: ep
+---
+Episode {
+    file_name: "The Tale of the Bamboo Moon (2013) 1080p BDRip x265 10bit AC3 5.1 - Toki.mkv",
+    title: Some(
+        "The Tale of the Bamboo Moon",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Toki",
+    ),
+}

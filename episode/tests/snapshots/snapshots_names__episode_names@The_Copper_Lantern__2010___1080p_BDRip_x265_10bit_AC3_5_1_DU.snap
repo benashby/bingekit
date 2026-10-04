@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: "The Copper Lantern (2010) (1080p BDRip x265 10bit AC3 5.1 DUAL - Toki)[TAoX].mkv"
+expression: ep
+---
+Episode {
+    file_name: "The Copper Lantern (2010) (1080p BDRip x265 10bit AC3 5.1 DUAL - Toki)[TAoX].mkv",
+    title: Some(
+        "The Copper Lantern",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Toki TAoX",
+    ),
+}
