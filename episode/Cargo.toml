@@ -1,6 +1,6 @@
 [package]
 name = "bingekit-episode"
-version = "0.1.0"
+version = "0.2.0"
 description = "Episode information from media filenames (general and anime release names), and a viewing order for a folder of them"
 readme = "README.md"
 keywords = ["episode", "filename", "parser", "anime", "media"]
