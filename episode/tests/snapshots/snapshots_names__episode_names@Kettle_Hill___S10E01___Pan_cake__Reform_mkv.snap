@@ -17,7 +17,5 @@ Episode {
     kind: Regular,
     version: None,
     part: None,
-    release_group: Some(
-        "Reform",
-    ),
+    release_group: None,
 }

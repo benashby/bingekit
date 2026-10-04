@@ -193,8 +193,26 @@ fn parse_with(pipeline: &Pipeline, file_name: &str, siblings: &[&str]) -> Episod
         kind,
         version: r.first(Property::Version).and_then(|v| v.parse().ok()),
         part: r.part().and_then(|p| u32::try_from(p).ok()),
-        release_group: r.release_group().map(str::to_owned),
+        release_group: r
+            .release_group()
+            .filter(|g| placed_as_group(&r, file_name, g))
+            .map(str::to_owned),
     }
+}
+
+/// Whether a release group hunch found sits where groups go: in brackets, or after a
+/// dash in a name with release tags (`x264-GRP`, `5.1 - Encoder.mkv`). hunch also
+/// takes a known word at the end of an episode title (`... for Beginners`) for a group.
+fn placed_as_group(r: &HunchResult, file_name: &str, group: &str) -> bool {
+    let last = group.rsplit(' ').next().unwrap_or(group);
+    let tagged = r.screen_size().is_some() || r.source().is_some() || r.video_codec().is_some();
+    file_name.match_indices(last).any(|(i, _)| {
+        let before = &file_name[..i];
+        let after = &file_name[i + last.len()..];
+        before.ends_with('[')
+            || (tagged && before.ends_with('-'))
+            || (tagged && before.ends_with(" - ") && !after.contains(' '))
+    })
 }
 
 /// A name with a year and no episode number other than that year, and no air date:

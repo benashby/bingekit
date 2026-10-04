@@ -444,7 +444,6 @@ fn broadcast_capture_with_two_episodes() {
 
 /// The last word of an episode title is not a release group.
 #[test]
-#[ignore = "known words at the end of an episode title parse as a release group"]
 fn episode_title_words_are_not_groups() {
     check(&[
         ep(
