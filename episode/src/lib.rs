@@ -16,7 +16,7 @@
 use std::cmp::Ordering;
 use std::sync::LazyLock;
 
-use hunch::{Pipeline, Property};
+use hunch::{HunchResult, Pipeline, Property};
 use regex::Regex;
 
 mod play;
@@ -114,14 +114,24 @@ pub fn parse(file_name: &str) -> Episode {
 pub fn parse_folder<S: AsRef<str>>(file_names: &[S]) -> Vec<Episode> {
     let pipeline = Pipeline::new();
     let names: Vec<&str> = file_names.iter().map(AsRef::as_ref).collect();
+    // A name that reads as a dated film on its own stays a film, and isn't context
+    // for the others: the numbers that differ between film titles are sequels, not
+    // episodes.
+    let films: Vec<bool> = names
+        .iter()
+        .map(|n| parse_anime_release(n).is_none() && is_dated_film(&pipeline.run(n)))
+        .collect();
     let mut parsed: Vec<Episode> = names
         .iter()
         .enumerate()
         .map(|(i, name)| {
+            if films[i] {
+                return parse_with(&pipeline, name, &[]);
+            }
             let siblings: Vec<&str> = names
                 .iter()
                 .enumerate()
-                .filter_map(|(j, n)| (j != i).then_some(*n))
+                .filter_map(|(j, n)| (j != i && !films[j]).then_some(*n))
                 .collect();
             parse_with(&pipeline, name, &siblings)
         })
@@ -139,11 +149,18 @@ fn parse_with(pipeline: &Pipeline, file_name: &str, siblings: &[&str]) -> Episod
     } else {
         pipeline.run_with_context(file_name, siblings)
     };
-    let season = r.season().and_then(|s| u32::try_from(s).ok());
+    // A dated film's other numbers are not a season or episodes: `S88` in an
+    // encoder's settings, or the year itself after a dash.
+    let film = is_dated_film(&r);
+    let season = r
+        .season()
+        .and_then(|s| u32::try_from(s).ok())
+        .filter(|_| !film);
     let episodes: Vec<u32> = r
         .all(Property::Episode)
         .iter()
         .filter_map(|e| e.parse().ok())
+        .filter(|_| !film)
         .collect();
     let details = r.episode_details().unwrap_or_default().to_ascii_lowercase();
     // hunch also finds "Special" in an episode title. A season and episode number
@@ -155,9 +172,9 @@ fn parse_with(pipeline: &Pipeline, file_name: &str, siblings: &[&str]) -> Episod
         Kind::Special
     } else if r.is_extra() {
         Kind::Extra
-    } else if !episodes.is_empty() || r.is_episode() {
+    } else if !episodes.is_empty() || (r.is_episode() && !film) {
         Kind::Regular
-    } else if r.is_movie() {
+    } else if r.is_movie() || film {
         Kind::Movie
     } else {
         Kind::Unknown
@@ -172,6 +189,16 @@ fn parse_with(pipeline: &Pipeline, file_name: &str, siblings: &[&str]) -> Episod
         part: r.part().and_then(|p| u32::try_from(p).ok()),
         release_group: r.release_group().map(str::to_owned),
     }
+}
+
+/// A name with a year and no episode number other than that year, and no air date:
+/// a film.
+fn is_dated_film(r: &HunchResult) -> bool {
+    let Some(year) = r.year() else {
+        return false;
+    };
+    let episodes = r.all(Property::Episode);
+    r.date().is_none() && (episodes.is_empty() || episodes == [year.to_string()])
 }
 
 /// `[Group] Title - <tag><n>[v<ver>] …`, with spaces or underscores. The tag decides the

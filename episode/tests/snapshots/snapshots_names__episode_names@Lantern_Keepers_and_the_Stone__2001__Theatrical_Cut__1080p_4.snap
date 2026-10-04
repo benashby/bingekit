@@ -8,11 +8,9 @@ Episode {
     title: Some(
         "Lantern Keepers and the Stone",
     ),
-    season: Some(
-        88,
-    ),
+    season: None,
     episodes: [],
-    kind: Regular,
+    kind: Movie,
     version: None,
     part: None,
     release_group: Some(

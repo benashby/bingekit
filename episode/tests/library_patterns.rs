@@ -393,7 +393,6 @@ fn special_in_an_episode_title() {
 
 /// An encoder's settings in a film's release tags (`crf19 4MAX S88`) are not a season.
 #[test]
-#[ignore = "S88 in a film's encoder tags parses as season 88 of a series"]
 fn encoder_settings_in_a_film_name() {
     check(&[
         film(
@@ -414,7 +413,6 @@ fn encoder_settings_in_a_film_name() {
 
 /// `Title - Company - Year` names a recorded stage show, not episode 2023.
 #[test]
-#[ignore = "a year after the last dash parses as an episode number"]
 fn a_year_after_a_dash() {
     check(&[
         film("Saltmarsh Choir - Riverside Players - 2023.mkv"),
