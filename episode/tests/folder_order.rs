@@ -161,7 +161,6 @@ fn two_copies_of_a_film_are_films() {
 /// A sequel's disc title left in the folder of the film before it. The numbers in
 /// the titles are not episodes.
 #[test]
-#[ignore = "sibling context turns sequel numbers into episode numbers"]
 fn a_stray_disc_title_beside_a_film() {
     let names = ["Kite Panda 2 (2011).mkv", "Kite Panda 3_t05.mkv"];
     let parsed = parse_folder(&names);

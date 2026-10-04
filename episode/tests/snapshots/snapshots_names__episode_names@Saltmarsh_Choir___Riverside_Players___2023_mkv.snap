@@ -9,10 +9,8 @@ Episode {
         "Saltmarsh Choir",
     ),
     season: None,
-    episodes: [
-        2023,
-    ],
-    kind: Regular,
+    episodes: [],
+    kind: Movie,
     version: None,
     part: None,
     release_group: None,
