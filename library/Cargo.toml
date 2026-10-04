@@ -1,6 +1,6 @@
 [package]
 name = "bingekit-library"
-version = "0.3.0"
+version = "0.3.1"
 description = "Find the video files in a folder, work out which language each audio and subtitle track is in, and pick tracks for every file from ranked language pairings"
 readme = "README.md"
 keywords = ["media", "subtitles", "audio", "anime", "playlist"]
