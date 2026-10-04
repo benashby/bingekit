@@ -131,7 +131,6 @@ fn an_arc_named_in_episode_titles_sorts_by_episode() {
 /// A folder of films, some of them in parts. A film in parts sorts with its title,
 /// part by part.
 #[test]
-#[ignore = "films with a part sort after every film without one"]
 fn films_in_parts_sort_with_their_title() {
     let names = [
         "Zephyr Road (1999).mkv",

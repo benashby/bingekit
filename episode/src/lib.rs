@@ -82,11 +82,13 @@ impl Episode {
         }
     }
 
-    /// Viewing order: regular episodes by season, episode and part, then specials, extras,
-    /// films and unrecognised files. Ties fall back to the file name, so the order is total
-    /// and stable across runs.
+    /// Viewing order: regular episodes by season, episode, title and part, then specials,
+    /// extras, films and unrecognised files. Films sort by title and part, so a film in
+    /// parts stays together. Ties fall back to the file name, so the order is total and
+    /// stable across runs.
     #[must_use]
     pub fn viewing_order(&self, other: &Self) -> Ordering {
+        let title = |e: &Self| e.title.as_deref().map(str::to_lowercase);
         self.kind_rank()
             .cmp(&other.kind_rank())
             .then(self.season.unwrap_or(1).cmp(&other.season.unwrap_or(1)))
@@ -95,6 +97,7 @@ impl Episode {
                     .unwrap_or(u32::MAX)
                     .cmp(&other.episode().unwrap_or(u32::MAX)),
             )
+            .then_with(|| title(self).cmp(&title(other)))
             .then(self.part.unwrap_or(0).cmp(&other.part.unwrap_or(0)))
             .then_with(|| self.file_name.cmp(&other.file_name))
     }
