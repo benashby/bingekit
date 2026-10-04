@@ -19,6 +19,9 @@ use std::sync::LazyLock;
 use hunch::{Pipeline, Property};
 use regex::Regex;
 
+mod play;
+pub use play::{next_after, play_order};
+
 // Runs the README example as a doctest, so the README cannot drift from the code.
 #[cfg(doctest)]
 #[doc = include_str!("../README.md")]

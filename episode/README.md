@@ -31,5 +31,24 @@ assert_eq!(
 ambiguous titles, and returns the files in viewing order: episodes, then specials, then
 extras.
 
+A folder often holds the same episode more than once: two releases side by side, a 720p
+copy beside a 1080p one, or a `v2` beside the file it fixed. `play_order` keeps one file
+per episode for playback, preferring the release playback started in, and `next_after`
+gives the file that plays after the current one. An episode that only another release
+has stays in, so a season whose episodes came from different groups still plays through.
+
+```rust
+use bingekit_episode::next_after;
+
+let folder = [
+    "[GrpA] Show - 01 [1080p].mkv",
+    "[GrpB] Show - 01 [720p].mkv",
+    "[GrpA] Show - 02 [1080p].mkv",
+    "[GrpB] Show - 02 [720p].mkv",
+];
+let next = next_after(&folder, "[GrpB] Show - 01 [720p].mkv").unwrap();
+assert_eq!(next.file_name, "[GrpB] Show - 02 [720p].mkv");
+```
+
 Part of [bingekit](https://github.com/benashby/bingekit). Licensed under
 [0BSD](LICENSE).
