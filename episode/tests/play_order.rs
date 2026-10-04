@@ -247,7 +247,6 @@ const OVERLAPPING: [&str; 10] = [
 ];
 
 #[test]
-#[ignore = "overlapping ranges from one release are taken for copies and dropped"]
 fn overlapping_double_episodes_all_play() {
     assert_eq!(names(&play_order(&OVERLAPPING, None)), OVERLAPPING);
     for start in OVERLAPPING {
