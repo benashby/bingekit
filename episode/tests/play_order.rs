@@ -297,7 +297,6 @@ fn a_season_from_many_groups_plays_straight_through() {
 /// A renamed copy of a season beside a scene copy of the same episodes. The renamed
 /// files carry an arc's part in their episode titles; the scene files don't.
 #[test]
-#[ignore = "a part named only in one release's episode title keeps the copies apart"]
 fn a_part_in_one_releases_episode_title() {
     let folder = [
         "Tidewatch (2008) - S07E06 - Anchors, Part 1 The Harbor Queen (1080p BluRay x265 Kelp).mkv",
