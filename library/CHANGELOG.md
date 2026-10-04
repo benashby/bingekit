@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/benashby/bingekit/compare/library/v0.3.0...library/v0.3.1) (2026-10-04)
+
+
+### Bug Fixes
+
+* **library:** leave release samples out of scans ([a8b0306](https://github.com/benashby/bingekit/commit/a8b030603f7818f4f02a739a3363dd792e1d98e5))
+
 ## [0.3.0](https://github.com/benashby/bingekit/compare/library/v0.2.0...library/v0.3.0) (2026-10-01)
 
 
