@@ -221,9 +221,9 @@ fn comma_listed_episodes(file_name: &str) -> Option<Vec<u32>> {
         .collect()
 }
 
-/// `[Group] Title - <tag><n>[v<ver>] …`, with spaces or underscores. The tag decides the
-/// kind: none is a regular episode, `S`/`SP`/`OVA`/`OAD` a special, `C`/`NC`/`NCOP`/
-/// `NCED`/`OP`/`ED`/`PV` an extra.
+/// `[Group] Title - <tag><n>[v<ver>][-<last>] …`, with spaces or underscores. The tag
+/// decides the kind: none is a regular episode, `S`/`SP`/`OVA`/`OAD` a special, `C`/
+/// `NC`/`NCOP`/`NCED`/`OP`/`ED`/`PV` an extra. `-<last>` makes it a run of episodes.
 static ANIME: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(
         r"(?ix)
@@ -233,6 +233,7 @@ static ANIME: LazyLock<Regex> = LazyLock::new(|| {
         (?P<tag>NCOP|NCED|OVA|OAD|SP|NC|OP|ED|PV|S|C)?
         (?P<num>\d{1,4})
         (?:v(?P<ver>\d{1,2}))?
+        (?:-(?P<last>\d{1,4}))?
         (?:[\s_.(\[]|$)",
     )
     .expect("static regex")
@@ -250,11 +251,17 @@ fn parse_anime_release(file_name: &str) -> Option<Episode> {
         Some(_) => Kind::Extra,
     };
     let title = caps["title"].replace('_', " ").trim().to_owned();
+    let first: u32 = caps["num"].parse().ok()?;
+    let last = caps
+        .name("last")
+        .and_then(|l| l.as_str().parse().ok())
+        .filter(|&l| l > first)
+        .unwrap_or(first);
     Some(Episode {
         file_name: file_name.to_owned(),
         title: (!title.is_empty()).then_some(title),
         season: None,
-        episodes: vec![caps["num"].parse().ok()?],
+        episodes: (first..=last).collect(),
         kind,
         version: caps.name("ver").and_then(|v| v.as_str().parse().ok()),
         part: None,

@@ -431,7 +431,6 @@ fn comma_separated_episodes() {
 
 /// A Japanese broadcast capture with two episodes in one file.
 #[test]
-#[ignore = "an episode range in a bracketed release misses the anime parser"]
 fn broadcast_capture_with_two_episodes() {
     check(&[Row {
         name: "[capsgrp] Pocket Critters (2023) - 003-004 (TVK 1440x1080 MPEG2 AAC).ts",
@@ -468,4 +467,12 @@ fn episode_title_words_are_not_groups() {
             &[5, 6, 7],
         ),
     ]);
+}
+
+/// A fansub release of two episodes in one file.
+#[test]
+fn fansub_double_episode() {
+    let got = parse("[Grp] Tidewatch - 01-02 (1080p) [0A1B2C3D].mkv");
+    assert_eq!(got.episodes, [1, 2]);
+    assert_eq!(got.kind, Kind::Regular);
 }
