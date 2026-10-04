@@ -120,7 +120,9 @@ fn library() -> tempfile::TempDir {
         "Kettle Hill/Season 01/Kettle Hill - S01E01 - Pilot Light-thumb.jpg",
         "Kettle Hill/Season 01/Kettle Hill - S01E01 - Pilot Light.trickplay/320 - 10x10/0.jpg",
         "Kettle Hill/Season 01/Kettle Hill - S01E02 - Kettle On.mp4",
+        "Kettle Hill/Season 01/Kettle Hill - S01E03 - Free Sample.mkv",
         "Kettle Hill/Specials/Kettle Hill - S00E01 - Romancing the Turnip.avi",
+        "Kettle Hill/Specials/kettle.hill.s00e02.720p.web.h264-grp-sample.mkv",
         "Pocket Critters/Season 20/[capsgrp] Pocket Critters (2023) - 003-004 (TVK 1440x1080 MPEG2 AAC).ts",
         "Night.Ferry.S01.1080p.WEB.h264-DORADO/S01/Night.Ferry.S01E01.1080p.WEB.h264-DORADO/night.ferry.s01e01.1080p.web.h264-dorado.rar",
         "Night.Ferry.S01.1080p.WEB.h264-DORADO/S01/Night.Ferry.S01E01.1080p.WEB.h264-DORADO/night.ferry.s01e01.1080p.web.h264-dorado.r00",
@@ -151,7 +153,8 @@ fn a_season_folder_holds_only_its_episodes() {
         names(&found, &dir.path().join("Kettle Hill/Season 01")),
         [
             "Kettle Hill - S01E01 - Pilot Light.mkv",
-            "Kettle Hill - S01E02 - Kettle On.mp4"
+            "Kettle Hill - S01E02 - Kettle On.mp4",
+            "Kettle Hill - S01E03 - Free Sample.mkv"
         ]
     );
 }
@@ -186,7 +189,6 @@ fn a_recursive_scan_finds_the_videos_among_sidecars() {
 /// A release's sample is a short clip of an episode, not something to play. The
 /// pack it came in may hold nothing else that plays.
 #[test]
-#[ignore = "release samples are scanned as videos"]
 fn a_recursive_scan_leaves_out_release_samples() {
     let dir = library();
     let options = ScanOptions {
@@ -195,8 +197,13 @@ fn a_recursive_scan_leaves_out_release_samples() {
     };
     let found = scan(dir.path(), options).unwrap();
     let found = names(&found, dir.path());
-    assert!(!found.iter().any(|f| f.contains("sample")), "{found:#?}");
-    assert_eq!(found.len(), 5, "{found:#?}");
+    assert!(
+        !found
+            .iter()
+            .any(|f| f.ends_with(".sample.mkv") || f.ends_with("-sample.mkv")),
+        "{found:#?}"
+    );
+    assert_eq!(found.len(), 6, "{found:#?}");
 }
 
 /// Every kind of file a real library held beside its videos.
