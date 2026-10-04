@@ -30,7 +30,8 @@ use crate::{Episode, Kind, parse_folder};
 ///
 /// An episode that only another release has stays in, so a season whose episodes came
 /// from different groups plays through. A file covering several episodes stands in for
-/// the single files of the same episodes when it wins. Extras, films and files with no
+/// another release's single files of the same episodes when it wins. Files from one
+/// release are copies only when they hold the same episodes. Extras, films and files with no
 /// episode number are never merged, since nothing says which of them are copies.
 #[must_use]
 pub fn play_order<S: AsRef<str>>(file_names: &[S], start: Option<&str>) -> Vec<Episode> {
@@ -119,14 +120,23 @@ fn mergeable(ep: &Episode) -> bool {
     !ep.episodes.is_empty() && matches!(ep.kind, Kind::Regular | Kind::Special)
 }
 
-/// Two files of the same kind, season and part that share an episode number.
+/// Two files of the same kind, season and part that share an episode number. Two
+/// files from one release are copies only when they hold the same episodes: a
+/// release that numbers segments apart can list overlapping ranges (`E18-E23` and
+/// `E20-E21`) for files that are all different.
 fn same_episode(a: &Episode, b: &Episode) -> bool {
+    let shared = if a.release_group == b.release_group {
+        a.episodes.iter().all(|n| b.episodes.contains(n))
+            && b.episodes.iter().all(|n| a.episodes.contains(n))
+    } else {
+        a.episodes.iter().any(|n| b.episodes.contains(n))
+    };
     mergeable(a)
         && mergeable(b)
         && a.kind == b.kind
         && a.season.unwrap_or(1) == b.season.unwrap_or(1)
         && a.part.unwrap_or(0) == b.part.unwrap_or(0)
-        && a.episodes.iter().any(|n| b.episodes.contains(n))
+        && shared
 }
 
 /// The words of a file name that describe its release rather than its episode:
