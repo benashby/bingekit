@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: The.Harvest.Games.Ember-Part.1.2014.REPACK.1080p.BluRay.DTS.X264-EbX.mkv
+expression: ep
+---
+Episode {
+    file_name: "The.Harvest.Games.Ember-Part.1.2014.REPACK.1080p.BluRay.DTS.X264-EbX.mkv",
+    title: Some(
+        "The Harvest Games Ember",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: Some(
+        1,
+    ),
+    release_group: Some(
+        "EbX",
+    ),
+}

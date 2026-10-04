@@ -1,0 +1,26 @@
+---
+source: tests/snapshots_names.rs
+description: Sprout Squad! - S02E18-E23 - Serious Snacks & Harvest Day.mkv
+expression: ep
+---
+Episode {
+    file_name: "Sprout Squad! - S02E18-E23 - Serious Snacks & Harvest Day.mkv",
+    title: Some(
+        "Sprout Squad!",
+    ),
+    season: Some(
+        2,
+    ),
+    episodes: [
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

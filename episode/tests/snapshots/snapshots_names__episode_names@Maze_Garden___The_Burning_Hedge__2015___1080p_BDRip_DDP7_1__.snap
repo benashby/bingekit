@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: Maze Garden - The Burning Hedge (2015) (1080p BDRip DDP7.1. x265) - Valle.mkv
+expression: ep
+---
+Episode {
+    file_name: "Maze Garden - The Burning Hedge (2015) (1080p BDRip DDP7.1. x265) - Valle.mkv",
+    title: Some(
+        "Maze Garden",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Valle",
+    ),
+}

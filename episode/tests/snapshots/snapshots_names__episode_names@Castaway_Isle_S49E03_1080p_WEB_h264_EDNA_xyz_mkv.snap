@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: Castaway.Isle.S49E03.1080p.WEB.h264-EDNA-xyz.mkv
+expression: ep
+---
+Episode {
+    file_name: "Castaway.Isle.S49E03.1080p.WEB.h264-EDNA-xyz.mkv",
+    title: Some(
+        "Castaway Isle",
+    ),
+    season: Some(
+        49,
+    ),
+    episodes: [
+        3,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "EDNA-xyz",
+    ),
+}

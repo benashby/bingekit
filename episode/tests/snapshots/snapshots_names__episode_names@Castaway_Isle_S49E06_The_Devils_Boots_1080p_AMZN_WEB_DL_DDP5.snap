@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: Castaway Isle S49E06 The Devils Boots 1080p AMZN WEB-DL DDP5 1 H 264-FLAX.mkv
+expression: ep
+---
+Episode {
+    file_name: "Castaway Isle S49E06 The Devils Boots 1080p AMZN WEB-DL DDP5 1 H 264-FLAX.mkv",
+    title: Some(
+        "Castaway Isle",
+    ),
+    season: Some(
+        49,
+    ),
+    episodes: [
+        6,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "FLAX",
+    ),
+}

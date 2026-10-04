@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: "Hero League x Moon Guard - Knights & Hunters, Part Two (2023).mkv"
+expression: ep
+---
+Episode {
+    file_name: "Hero League x Moon Guard - Knights & Hunters, Part Two (2023).mkv",
+    title: Some(
+        "Hero League x Moon Guard",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: Some(
+        2,
+    ),
+    release_group: None,
+}

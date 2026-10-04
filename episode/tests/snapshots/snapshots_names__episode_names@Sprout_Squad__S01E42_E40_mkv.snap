@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "Sprout Squad! S01E42,E40.mkv"
+expression: ep
+---
+Episode {
+    file_name: "Sprout Squad! S01E42,E40.mkv",
+    title: Some(
+        "Sprout Squad!",
+    ),
+    season: Some(
+        1,
+    ),
+    episodes: [
+        42,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

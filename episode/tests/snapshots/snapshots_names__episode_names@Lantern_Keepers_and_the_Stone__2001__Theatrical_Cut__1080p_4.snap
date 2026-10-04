@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "Lantern Keepers and the Stone (2001)[Theatrical Cut](1080p 4KBDRip DV+HDR10 HYBRID x265 crf19 4MAX S88 E-AC3 5.1)[cHorsy].mkv"
+expression: ep
+---
+Episode {
+    file_name: "Lantern Keepers and the Stone (2001)[Theatrical Cut](1080p 4KBDRip DV+HDR10 HYBRID x265 crf19 4MAX S88 E-AC3 5.1)[cHorsy].mkv",
+    title: Some(
+        "Lantern Keepers and the Stone",
+    ),
+    season: Some(
+        88,
+    ),
+    episodes: [],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "4MAX cHorsy",
+    ),
+}

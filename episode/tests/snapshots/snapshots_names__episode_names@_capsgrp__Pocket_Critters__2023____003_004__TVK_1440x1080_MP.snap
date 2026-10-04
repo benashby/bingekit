@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: "[capsgrp] Pocket Critters (2023) - 003-004 (TVK 1440x1080 MPEG2 AAC).ts"
+expression: ep
+---
+Episode {
+    file_name: "[capsgrp] Pocket Critters (2023) - 003-004 (TVK 1440x1080 MPEG2 AAC).ts",
+    title: Some(
+        "Pocket Critters",
+    ),
+    season: None,
+    episodes: [
+        3,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "capsgrp",
+    ),
+}

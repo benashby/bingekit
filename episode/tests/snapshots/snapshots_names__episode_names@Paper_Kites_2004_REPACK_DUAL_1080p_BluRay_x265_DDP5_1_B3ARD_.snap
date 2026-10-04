@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: Paper.Kites.2004.REPACK.DUAL.1080p.BluRay.x265.DDP5.1-B3ARD.mkv
+expression: ep
+---
+Episode {
+    file_name: "Paper.Kites.2004.REPACK.DUAL.1080p.BluRay.x265.DDP5.1-B3ARD.mkv",
+    title: Some(
+        "Paper Kites",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "B3ARD",
+    ),
+}

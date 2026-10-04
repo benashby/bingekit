@@ -228,3 +228,116 @@ proptest! {
         prop_assert_eq!(numbers.len(), unique.len(), "an episode played twice");
     }
 }
+
+/// Double episodes from one release whose ranges overlap, because segments that aired
+/// together were numbered apart, beside single episodes the ranges also span. None of
+/// them are copies of each other, so every file plays. One episode title ends in a
+/// word that looks like a release group.
+const OVERLAPPING: [&str; 10] = [
+    "Sprout Squad! - S02E01-E02 - Mr. Sprout.mkv",
+    "Sprout Squad! - S02E03-E05.mkv",
+    "Sprout Squad! - S02E13-E18.mkv",
+    "Sprout Squad! - S02E14 - Sandwich Bandit.mkv",
+    "Sprout Squad! - S02E17 - The Helmet.mkv",
+    "Sprout Squad! - S02E18-E23 - Serious Snacks & Harvest Day.mkv",
+    "Sprout Squad! - S02E20-E21 - Cats vs Dogs & Kite Adventure.mkv",
+    "Sprout Squad! - S02E22-E24 - Road Snacks & The Best Sprout.mkv",
+    "Sprout Squad! - S02E23-E26 - Kite Knight & Cat Flaps.mkv",
+    "Sprout Squad! - S02E25-E26 - Nose Bump & Cold Soup.mkv",
+];
+
+#[test]
+#[ignore = "overlapping ranges from one release are taken for copies and dropped"]
+fn overlapping_double_episodes_all_play() {
+    assert_eq!(names(&play_order(&OVERLAPPING, None)), OVERLAPPING);
+    for start in OVERLAPPING {
+        assert_eq!(names(&play_order(&OVERLAPPING, Some(start))), OVERLAPPING);
+    }
+    for pair in OVERLAPPING.windows(2) {
+        assert_eq!(next(&OVERLAPPING, pair[0]).as_deref(), Some(pair[1]));
+    }
+}
+
+/// Segments listed with a comma, out of order in one file, beside double episodes.
+#[test]
+fn comma_listed_segments_play_in_place() {
+    let folder = [
+        "Sprout Squad! S01E37-E38.mkv",
+        "Sprout Squad! S01E39,E41.mkv",
+        "Sprout Squad! S01E42,E40.mkv",
+        "Sprout Squad! S01E43-E44.mkv",
+    ];
+    assert_eq!(names(&play_order(&folder, Some(folder[0]))), folder);
+    assert_eq!(next(&folder, folder[1]).as_deref(), Some(folder[2]));
+}
+
+/// A season whose episodes each came from whichever group had it: no two files are
+/// the same episode, so the season plays straight through from any of them.
+const MANY_GROUPS: [&str; 9] = [
+    "Castaway.Isle.S49E01.480p.x264-mSX.mkv",
+    "Castaway.Isle.S49E02.1080p.WEB.h264-EDNA.mkv",
+    "Castaway.Isle.S49E03.1080p.WEB.h264-EDNA-xyz.mkv",
+    "Castaway.Isle.S49E04.1080p.WEB.h264-EDNA.mkv",
+    "Castaway Isle S49E06 The Devils Boots 1080p AMZN WEB-DL DDP5 1 H 264-FLAX.mkv",
+    "Castaway.Isle.S49E07.Blood.in.the.Water.1080p.AMZN.WEB-DL.DDP5.1.H.264-BLOOMS.mkv",
+    "Castaway.Isle.S49E08.1080p.WEB.h264-EDNA.mkv",
+    "Castaway Isle S49E12 1080p WEB-DL-[Ferryman1980] mkv.mkv",
+    "Castaway.Isle.S49E13.A.Fever.Dream.1080p.PMTP.WEB-DL.DDP5.1.H.264-STX.mkv",
+];
+
+#[test]
+fn a_season_from_many_groups_plays_straight_through() {
+    for start in MANY_GROUPS {
+        assert_eq!(names(&play_order(&MANY_GROUPS, Some(start))), MANY_GROUPS);
+    }
+    for pair in MANY_GROUPS.windows(2) {
+        assert_eq!(next(&MANY_GROUPS, pair[0]).as_deref(), Some(pair[1]));
+    }
+}
+
+/// A renamed copy of a season beside a scene copy of the same episodes. The renamed
+/// files carry an arc's part in their episode titles; the scene files don't.
+#[test]
+#[ignore = "a part named only in one release's episode title keeps the copies apart"]
+fn a_part_in_one_releases_episode_title() {
+    let folder = [
+        "Tidewatch (2008) - S07E06 - Anchors, Part 1 The Harbor Queen (1080p BluRay x265 Kelp).mkv",
+        "Tidewatch (2008) - S07E07 - Anchors, Part 2 Everything Floats (1080p BluRay x265 Kelp).mkv",
+        "Tidewatch.S07E06.720p.WEB.x264-GRPC.mkv",
+        "Tidewatch.S07E07.720p.WEB.x264-GRPC.mkv",
+    ];
+    assert_eq!(
+        names(&play_order(&folder, Some(folder[0]))),
+        [folder[0], folder[1]]
+    );
+    assert_eq!(
+        names(&play_order(&folder, Some(folder[2]))),
+        [folder[2], folder[3]]
+    );
+}
+
+/// A whole show: specials from season 0 play after the last season.
+#[test]
+fn specials_play_after_the_seasons() {
+    let folder = [
+        "Kettle Hill - S00E01 - Romancing the Turnip.mkv",
+        "Kettle Hill - S01E01 - Pilot Light.mkv",
+        "Kettle Hill - S01E02 - Kettle On.mkv",
+        "Kettle Hill - S02E01 - Hot Turnip.avi",
+    ];
+    assert_eq!(
+        names(&play_order(&folder, None)),
+        [folder[1], folder[2], folder[3], folder[0]]
+    );
+    assert_eq!(next(&folder, folder[3]).as_deref(), Some(folder[0]));
+}
+
+/// Two copies of one film in its folder: films are never merged, so both stay.
+#[test]
+fn two_copies_of_a_film_both_stay() {
+    let folder = [
+        "Harbor Lights 3 (2024).mkv",
+        "Harbor.Lights.3.2024.REPACK.2160p.WEB-DL.DDP5.1.Atmos.DV.HDR.H.265-FLAX.mkv",
+    ];
+    assert_eq!(play_order(&folder, Some(folder[0])).len(), 2);
+}

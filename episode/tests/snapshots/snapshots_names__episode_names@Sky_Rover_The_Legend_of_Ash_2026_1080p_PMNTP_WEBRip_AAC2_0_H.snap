@@ -1,0 +1,19 @@
+---
+source: tests/snapshots_names.rs
+description: "Sky.Rover.The.Legend.of.Ash.2026.1080p.PMNTP.WEBRip.AAC2.0.H264-[LEEK].mp4"
+expression: ep
+---
+Episode {
+    file_name: "Sky.Rover.The.Legend.of.Ash.2026.1080p.PMNTP.WEBRip.AAC2.0.H264-[LEEK].mp4",
+    title: Some(
+        "Sky Rover The Legend of Ash",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: Some(
+        "LEEK",
+    ),
+}

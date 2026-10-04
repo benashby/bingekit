@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Moss Garden (2026) - S01E08.mkv
+expression: ep
+---
+Episode {
+    file_name: "Moss Garden (2026) - S01E08.mkv",
+    title: Some(
+        "Moss Garden",
+    ),
+    season: Some(
+        1,
+    ),
+    episodes: [
+        8,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

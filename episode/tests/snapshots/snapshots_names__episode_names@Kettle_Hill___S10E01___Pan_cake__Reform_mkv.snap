@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: Kettle Hill - S10E01 - Pan(cake) Reform.mkv
+expression: ep
+---
+Episode {
+    file_name: "Kettle Hill - S10E01 - Pan(cake) Reform.mkv",
+    title: Some(
+        "Kettle Hill",
+    ),
+    season: Some(
+        10,
+    ),
+    episodes: [
+        1,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "Reform",
+    ),
+}

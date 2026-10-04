@@ -1,0 +1,17 @@
+---
+source: tests/snapshots_names.rs
+description: Gearwork Knights (2011) REPACK2 (1080p BluRay x265 HEVC 10bit AAC 5.1 Tigrol).mkv
+expression: ep
+---
+Episode {
+    file_name: "Gearwork Knights (2011) REPACK2 (1080p BluRay x265 HEVC 10bit AAC 5.1 Tigrol).mkv",
+    title: Some(
+        "Gearwork Knights",
+    ),
+    season: None,
+    episodes: [],
+    kind: Movie,
+    version: None,
+    part: None,
+    release_group: None,
+}

@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: the.night.ferry.s02e08.1080p.web.h264-dorado.sample.mkv
+expression: ep
+---
+Episode {
+    file_name: "the.night.ferry.s02e08.1080p.web.h264-dorado.sample.mkv",
+    title: Some(
+        "the night ferry",
+    ),
+    season: Some(
+        2,
+    ),
+    episodes: [
+        8,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "dorado",
+    ),
+}

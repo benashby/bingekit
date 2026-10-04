@@ -1,0 +1,21 @@
+---
+source: tests/snapshots_names.rs
+description: Kettle Hill - S06E13 - Soup Days II - The Long Ladle.avi
+expression: ep
+---
+Episode {
+    file_name: "Kettle Hill - S06E13 - Soup Days II - The Long Ladle.avi",
+    title: Some(
+        "Kettle Hill",
+    ),
+    season: Some(
+        6,
+    ),
+    episodes: [
+        13,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}

@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: Tidewatch - S05E23 - Reunion (Part 1).mp4
+expression: ep
+---
+Episode {
+    file_name: "Tidewatch - S05E23 - Reunion (Part 1).mp4",
+    title: Some(
+        "Tidewatch",
+    ),
+    season: Some(
+        5,
+    ),
+    episodes: [
+        23,
+    ],
+    kind: Regular,
+    version: None,
+    part: Some(
+        1,
+    ),
+    release_group: None,
+}

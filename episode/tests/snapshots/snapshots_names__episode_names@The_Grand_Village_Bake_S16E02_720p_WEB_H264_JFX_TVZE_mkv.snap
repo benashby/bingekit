@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: The Grand Village Bake S16E02 720p WEB H264 JFX TVZE.mkv
+expression: ep
+---
+Episode {
+    file_name: "The Grand Village Bake S16E02 720p WEB H264 JFX TVZE.mkv",
+    title: Some(
+        "The Grand Village Bake",
+    ),
+    season: Some(
+        16,
+    ),
+    episodes: [
+        2,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: Some(
+        "TVZE",
+    ),
+}

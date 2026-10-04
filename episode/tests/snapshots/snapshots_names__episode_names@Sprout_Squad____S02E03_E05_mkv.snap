@@ -1,0 +1,23 @@
+---
+source: tests/snapshots_names.rs
+description: Sprout Squad! - S02E03-E05.mkv
+expression: ep
+---
+Episode {
+    file_name: "Sprout Squad! - S02E03-E05.mkv",
+    title: Some(
+        "Sprout Squad!",
+    ),
+    season: Some(
+        2,
+    ),
+    episodes: [
+        3,
+        4,
+        5,
+    ],
+    kind: Regular,
+    version: None,
+    part: None,
+    release_group: None,
+}
