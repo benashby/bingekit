@@ -339,3 +339,19 @@ fn two_copies_of_a_film_both_stay() {
     ];
     assert_eq!(play_order(&folder, Some(folder[0])).len(), 2);
 }
+
+/// A whole show scanned at once, with a season folder holding a broadcast capture
+/// numbered from the start of its own series. With no season in its name it counts
+/// as season 1, and a different group makes it look like another release of season
+/// 1's episodes 3 and 4.
+#[test]
+#[ignore = "a file with no season stands in for season 1 episodes of the same numbers, even under another title"]
+fn a_seasonless_capture_in_a_whole_show_scan() {
+    let folder = [
+        "Critter\u{e9}mon - S01E03 - Ember Trouble.mkv",
+        "Critter\u{e9}mon - S01E04 - The Quiet Grove.mkv",
+        "Critter\u{e9}mon - S20E01 - A New Road.mkv",
+        "[capsgrp] Pocket Critters (2023) - 003-004 (TVK 1440x1080 MPEG2 AAC).ts",
+    ];
+    assert_eq!(play_order(&folder, Some(folder[0])).len(), folder.len());
+}
