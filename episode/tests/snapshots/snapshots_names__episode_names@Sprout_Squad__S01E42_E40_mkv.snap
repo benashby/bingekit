@@ -13,6 +13,7 @@ Episode {
     ),
     episodes: [
         42,
+        40,
     ],
     kind: Regular,
     version: None,

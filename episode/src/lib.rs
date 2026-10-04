@@ -156,12 +156,18 @@ fn parse_with(pipeline: &Pipeline, file_name: &str, siblings: &[&str]) -> Episod
         .season()
         .and_then(|s| u32::try_from(s).ok())
         .filter(|_| !film);
-    let episodes: Vec<u32> = r
+    let mut episodes: Vec<u32> = r
         .all(Property::Episode)
         .iter()
         .filter_map(|e| e.parse().ok())
         .filter(|_| !film)
         .collect();
+    // hunch reads only the first of `S01E29,E35`.
+    if let Some(listed) = comma_listed_episodes(file_name)
+        && episodes.first() == listed.first()
+    {
+        episodes = listed;
+    }
     let details = r.episode_details().unwrap_or_default().to_ascii_lowercase();
     // hunch also finds "Special" in an episode title. A season and episode number
     // already place the file in the main run, where season 0 holds the specials.
@@ -199,6 +205,20 @@ fn is_dated_film(r: &HunchResult) -> bool {
     };
     let episodes = r.all(Property::Episode);
     r.date().is_none() && (episodes.is_empty() || episodes == [year.to_string()])
+}
+
+/// `S01E29,E35`: episodes listed with commas, in the order written.
+static COMMA_LISTED: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"(?i)\bS\d{1,3}E(\d{1,4})((?:,E\d{1,4})+)\b").expect("static regex")
+});
+
+fn comma_listed_episodes(file_name: &str) -> Option<Vec<u32>> {
+    let caps = COMMA_LISTED.captures(file_name)?;
+    let rest = caps[2].split(',').skip(1).map(|e| &e[1..]);
+    std::iter::once(&caps[1])
+        .chain(rest)
+        .map(|n| n.parse().ok())
+        .collect()
 }
 
 /// `[Group] Title - <tag><n>[v<ver>] …`, with spaces or underscores. The tag decides the
