@@ -35,7 +35,6 @@ fn order(names: &[&str]) -> Vec<String> {
 
 /// A renamed season where one episode title has the word "Special" in it.
 #[test]
-#[ignore = "an episode title with the word Special parses as a special"]
 fn a_special_in_an_episode_title_keeps_its_place() {
     let names = [
         "Kettle Hill - S02E15 - The Paper Boat.mkv",

@@ -14,7 +14,7 @@ Episode {
     episodes: [
         14,
     ],
-    kind: Special,
+    kind: Regular,
     version: None,
     part: None,
     release_group: None,
