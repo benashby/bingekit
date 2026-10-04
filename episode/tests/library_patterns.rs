@@ -422,7 +422,6 @@ fn a_year_after_a_dash() {
 
 /// `S01E29,E35`: two segments listed with a comma, in any order.
 #[test]
-#[ignore = "only the first of comma-separated episodes is read"]
 fn comma_separated_episodes() {
     check(&[
         ep("Sprout Squad! S01E29,E35.mkv", 1, &[29, 35]),
