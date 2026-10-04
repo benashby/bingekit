@@ -374,7 +374,6 @@ fn scene_samples() {
 
 /// "Special" as a word of an episode title doesn't make a numbered episode a special.
 #[test]
-#[ignore = "an episode title with the word Special parses as a special"]
 fn special_in_an_episode_title() {
     check(&[
         ep("Kettle Hill - S02E14 - Special Delivery Kite.mkv", 2, &[14]),

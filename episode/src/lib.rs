@@ -146,7 +146,12 @@ fn parse_with(pipeline: &Pipeline, file_name: &str, siblings: &[&str]) -> Episod
         .filter_map(|e| e.parse().ok())
         .collect();
     let details = r.episode_details().unwrap_or_default().to_ascii_lowercase();
-    let kind = if details.contains("special") || details.contains("ova") || season == Some(0) {
+    // hunch also finds "Special" in an episode title. A season and episode number
+    // already place the file in the main run, where season 0 holds the specials.
+    let numbered = season.is_some_and(|s| s > 0) && !episodes.is_empty();
+    let kind = if season == Some(0)
+        || (!numbered && (details.contains("special") || details.contains("ova")))
+    {
         Kind::Special
     } else if r.is_extra() {
         Kind::Extra
