@@ -120,7 +120,9 @@ fn mergeable(ep: &Episode) -> bool {
     !ep.episodes.is_empty() && matches!(ep.kind, Kind::Regular | Kind::Special)
 }
 
-/// Two files of the same kind, season and part that share an episode number. Two
+/// Two files of the same kind and season that share an episode number, and whose
+/// parts don't differ. A part only one of them names is often an arc's part in a
+/// renamed episode title (`Anchors, Part 3`) that the other release leaves out. Two
 /// files from one release are copies only when they hold the same episodes: a
 /// release that numbers segments apart can list overlapping ranges (`E18-E23` and
 /// `E20-E21`) for files that are all different.
@@ -135,7 +137,7 @@ fn same_episode(a: &Episode, b: &Episode) -> bool {
         && mergeable(b)
         && a.kind == b.kind
         && a.season.unwrap_or(1) == b.season.unwrap_or(1)
-        && a.part.unwrap_or(0) == b.part.unwrap_or(0)
+        && (a.part == b.part || a.part.is_none() || b.part.is_none())
         && shared
 }
 
